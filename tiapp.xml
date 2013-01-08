@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <property name="acs-oauth-secret-production" type="string">8O95zn7LUsudxZmjejZ1oNZzD4VATM9v</property>
+    <property name="acs-oauth-key-production" type="string">gjoO9kRh4PAFQIMSepZdRN4qUfr6g1Qt</property>
+    <property name="acs-api-key-production" type="string">0kmLyV9kw0BQjyhBLgWbrL3v6vNEno1L</property>
+    <property name="acs-oauth-secret-development" type="string">94u4BZ3cJ6yF1lGGIawo55PoLwjNQobD</property>
+    <property name="acs-oauth-key-development" type="string">9mnvJr1ZVo8ylWMBHpN82ZGvpCV5dhWg</property>
+    <property name="acs-api-key-development" type="string">BVzh4qfSCFgFamElWHWatcMgEXAO9Cn4</property>
+    <deployment-targets>
+        <target device="mobileweb">true</target>
+        <target device="iphone">true</target>
+        <target device="ipad">true</target>
+        <target device="android">false</target>
+        <target device="blackberry">false</target>
+    </deployment-targets>
+    <sdk-version>3.0.0.GA</sdk-version>
+    <id>com.bihada_alarm</id>
+    <name>bihada</name>
+    <version>1.0</version>
+    <publisher>pc-0103-n</publisher>
+    <url>http://bihada_alarm.com</url>
+    <description>not specified</description>
+    <copyright>2013 by pc-0103-n</copyright>
+    <icon>appicon.png</icon>
+    <persistent-wifi>false</persistent-wifi>
+    <prerendered-icon>false</prerendered-icon>
+    <statusbar-style>default</statusbar-style>
+    <statusbar-hidden>false</statusbar-hidden>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>false</navbar-hidden>
+    <analytics>true</analytics>
+    <guid>e2d0c8f2-da7f-41a1-9de9-d7fea4d38a2f</guid>
+    <property name="ti.ui.defaultunit">system</property>
+    <iphone>
+        <orientations device="iphone">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+        </orientations>
+        <orientations device="ipad">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+            <orientation>Ti.UI.UPSIDE_PORTRAIT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
+        </orientations>
+    </iphone>
+    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <mobileweb>
+        <precache/>
+        <splash>
+            <enabled>true</enabled>
+            <inline-css-images>true</inline-css-images>
+        </splash>
+        <theme>default</theme>
+    </mobileweb>
+    <modules>
+        <module platform="commonjs">ti.cloud</module>
+    </modules>
+</ti:app>
