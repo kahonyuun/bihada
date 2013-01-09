@@ -53,5 +53,6 @@
     </mobileweb>
     <modules>
         <module platform="commonjs">ti.cloud</module>
+   
     </modules>
 </ti:app>

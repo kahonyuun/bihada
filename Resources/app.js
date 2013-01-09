@@ -5,7 +5,6 @@ Titanium.UI.setBackgroundColor('#000');
 var tabGroup = Titanium.UI.createTabGroup();
 
 
-//
 // ログページ
 var win1 = Titanium.UI.createWindow({  
     backgroundColor:'#fff'
@@ -25,27 +24,58 @@ var view1 = Ti.UI.createView({
 });
 win1.add(view1);
 
+
+//画像
 var topImage = Ti.UI.createImageView({
 	image:"image/bihada.jpg"
 });
 
 view1.add(topImage);
 
-
-var view2 = Ti.UI.createView({
-	top :"80%",
-	width:"100%",
-	height:150,
-	layout:'absolute',
-	backgroundColor:'red',
+//時計
+var timer = Ti.UI.createLabel({
+	font : {
+		fontSize : 48,
+		fontFamily:"Helvetica Neue"
+	},
+	textAlign:"center",
+	width:"auto",
+	top:40,
+	height:60,
 });
 
+setInterval(function(){
+	var d = new Date();
+	var t = {};
+	t.hour = ("0" + d.getHours() ).slice(-2);
+	t.minute = ("0" + d.getMinutes() ).slice(-2);
+	t.second = ("0" + d.getSeconds() ).slice(-2);
+	timer.text = t.hour + ":" + t.minute + ":" + t.second;
+},100 );
+
+view1.add(timer);
+
+
+
+//下View
+var view2 = Ti.UI.createView({
+	top:"80%",
+	width:"100%",
+	height : 150,
+	layout: 'absolute',
+	backgroundColor : 'black'
+});
+win1.add(view2);
+
+
+Ti.API.info(view2);
 
 var buttonIn = Ti.UI.createButton({
 	title : '布団IN!',
 	height : 50,
-	top : '0%',
+	top : '10%',
 	width : 80,
+	left:20,
 });
 
 buttonIn.addEventListener('click', function(e){
@@ -54,61 +84,75 @@ buttonIn.addEventListener('click', function(e){
 	})
 });
 
-view1.add(buttonIn);
+view2.add(buttonIn);
 
-
-/*var label1 = Titanium.UI.createLabel({
-	color:'#999',
-	text:'I am Window 1',
-	font:{fontSize:20,fontFamily:'Helvetica Neue'},
-	textAlign:'center',
-	width:'auto'
+var buttonOut = Ti.UI.createButton({
+	title : '布団OUT!',
+	height : 50,
+	top : '10%',
+	width : 80,
+	right:20,
 });
 
-win1.add(label1);
-*/
+buttonIn.addEventListener('click', function(){
+	tabGroup.open();
+});
+
+view2.add(buttonOut);
+
 
 
 //グラフ
-var win2 = Titanium.UI.createWindow({  
-    backgroundColor:'#fff'
+var winG = Titanium.UI.createWindow({  
+    url:"LOG/log.js"
 });
-var tab2 = Titanium.UI.createTab({  
+var tabG = Titanium.UI.createTab({  
     icon:'KS_nav_ui.png',
-    title:'Tab 2',
-    window:win2
+    title:'グラフ',
+    window:winG
 });
 
 //Tips
-var win3 = Titanium.UI.createWindow({  
-    backgroundColor:'#fff'
+var winT = Titanium.UI.createWindow({  
+  url:"Tips/top.js"
 });
-var tab3 = Titanium.UI.createTab({  
+var tabT = Titanium.UI.createTab({  
     icon:'KS_nav_views.png',
-    title:'Tab 1',
-    window:win3
+    title:'お肌',
+    window:winT
 });
 
 
 //設定
-var win4 = Titanium.UI.createWindow({  
+var winS = Titanium.UI.createWindow({  
     title:'設定',
-    backgroundColor:'#fff'
+    url:"setting.js"
 });
-var tab4 = Titanium.UI.createTab({  
+var tabS = Titanium.UI.createTab({  
     icon:'KS_nav_views.png',
     title:'設定',
-    window:win4
+    window:winS
 });
 
 
 
 //  add tabs
 tabGroup.addTab(tab1);  
-tabGroup.addTab(tab2);
-tabGroup.addTab(tab3);
-tabGroup.addTab(tab4);
+tabGroup.addTab(tabG);
+tabGroup.addTab(tabT);
+tabGroup.addTab(tabS);
 
 
 // open tab group
 tabGroup.open();
+
+//プッシュ通知
+/*
+ var CloudPush = require('ti.cloudpush');
+CloudPush.addEventListener('callback', function (evt){
+	alert(evt.p)
+})
+*/
+
+
+

@@ -1,1 +1,1 @@
-/Users/pc-0103-n/Documents/Titanium_Studio_Workspace/bihada/Resources/LOG/Log.js
+/Users/pc-0103-n/Documents/Titanium_Studio_Workspace/bihada/Resources/LOG/log.js

@@ -1,6 +1,8 @@
 exports.init = function(){
-	Ti.API.info('init')
+	//Ti.API.info('init')
 	
 	self = Ti.UI.currentWindow;
-	self.backgroundColor = "blue",
+	self.backgroundColor = "white";
+
+
 };
