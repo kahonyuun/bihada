@@ -1,13 +1,14 @@
-// this sets the background color of the master UIView (when there are no windows/tab groups on it)
-Titanium.UI.setBackgroundColor('#000');
+var common = require('common');
+common.init();
 
+
+//Titanium.UI.setBackgroundColor('#000');
 // create tab group
+function app (){
 var tabGroup = Titanium.UI.createTabGroup();
 
-
-// ログページ
+// BASE
 var win1 = Titanium.UI.createWindow({  
-    backgroundColor:'#fff'
 });
 var tab1 = Titanium.UI.createTab({  
     icon:'KS_nav_views.png',
@@ -23,6 +24,10 @@ var view1 = Ti.UI.createView({
 	//backgroundColor :
 });
 win1.add(view1);
+
+//for self グローバル変数
+	var ActiveWinTab = {};
+
 
 
 //画像
@@ -68,8 +73,7 @@ var view2 = Ti.UI.createView({
 win1.add(view2);
 
 
-Ti.API.info(view2);
-
+//未解決新しいtabかWindowを開いてページ遷移
 var buttonIn = Ti.UI.createButton({
 	title : '布団IN!',
 	height : 50,
@@ -78,14 +82,17 @@ var buttonIn = Ti.UI.createButton({
 	left:20,
 });
 
-buttonIn.addEventListener('click', function(e){
+buttonIn.addEventListener('focus', function(e){
+	ActiveWinTab.activeWindow = self,
 	Ti.UI.createWindow({
-		url: 'first.js',
+		url: "setting.js",
+	
 	})
+	Ti.API.info('IN')
 });
 
 view2.add(buttonIn);
-
+//////
 var buttonOut = Ti.UI.createButton({
 	title : '布団OUT!',
 	height : 50,
@@ -94,8 +101,10 @@ var buttonOut = Ti.UI.createButton({
 	right:20,
 });
 
-buttonIn.addEventListener('click', function(){
+
+buttonOut.addEventListener('click', function(){
 	tabGroup.open();
+	Ti.API.info('out')
 });
 
 view2.add(buttonOut);
@@ -145,7 +154,8 @@ tabGroup.addTab(tabS);
 
 // open tab group
 tabGroup.open();
-
+}
+app();
 //プッシュ通知
 /*
  var CloudPush = require('ti.cloudpush');
