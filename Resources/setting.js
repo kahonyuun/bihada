@@ -3,6 +3,10 @@ common.init();
 
 //Ti.API.info('common')
 
+self.top = 0;
+self.height = 410;
+
+
 
 var text = Ti.UI.createLabel({
 	text:'Twitter',
@@ -14,23 +18,6 @@ var text = Ti.UI.createLabel({
 
 self.add(text);
 
-//test
-var buttonIn = Ti.UI.createButton({
-	title : '布団IN!',
-	height : 50,
-	top : '10%',
-	width : 80,
-	left:20,
-});
-self.add(buttonIn);
-
-
-buttonIn.addEventListener('focus', function(e){
-	ActiveWinTab.activeWindow = self;
-	//Ti.UI.createWindow({
-		//url: "app.js",
-	//})
-});
 
 
 //Twitter
