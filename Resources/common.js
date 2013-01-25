@@ -10,8 +10,5 @@ exports.init = function(){
 	//commonになくともapp.jsに書いておけば全てのwinに色が適用される
 	var color = Titanium.UI.setBackgroundColor('pink');
 	//var View = Ti.UI.createView;
-	
-	
-
-
+		
 };
