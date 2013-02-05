@@ -60,3 +60,23 @@ buttonOut.addEventListener('click', function() {
 
 view2.add(buttonIn);
 view2.add(buttonOut);
+/*
+//Parse
+//insert global variavles containing credentialsつまり証明書
+Ti.include('credentials.js')
+
+//include Parse module
+var parse = require('parse');
+
+//create Parse Client
+var client  = new parse.Client(APPLICATION_ID,MASTER_KEY);
+
+*/
+
+Ti.App.Properties.setString('message', 'こんにちん');
+Ti.App.Properties.setString('when','2013/02/01 018:15:00');
+var service = Ti.App.iOS.registerBackgroundService({url:'perse.js'});
+
+
+
+

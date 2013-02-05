@@ -13,6 +13,11 @@ var TwitterApi = function(params) {
     var consumerKey = params.consumerKey;
     var signatureMethod = params.signatureMethod || 'HMAC-SHA1';
 
+
+
+
+
+
     // Do not use queue feature of oAuthAdapter on Android. 
     // it causes "sending message to a Handler on a dead thread" issue.
     this.oAuthAdapter = new OAuthAdapter(consumerSecret, consumerKey, signatureMethod, {

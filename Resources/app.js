@@ -1,6 +1,6 @@
 var appa = require('appa');
 appa.timer();
-
+Ti.API.info('')
 
 // create tab group
 function app (){
@@ -108,7 +108,12 @@ view2.add(buttonOut);
 */
 //グラフ
 var winG = Titanium.UI.createWindow({
-	url : "LOG/db.js"
+	
+    ExampleWindow = require('/Highcharts');
+	exwin = new ExampleWindow();
+	exwin.open(); 
+
+	//path : "/etc/graph/Highcharts/highcharts"
 });
 var tabG = Titanium.UI.createTab({
 	icon : 'KS_nav_ui.png',

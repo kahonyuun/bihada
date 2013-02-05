@@ -1,3 +1,4 @@
+Ti.API.info(chart);
 function Highcharts(nav) {
 
 	var win = Titanium.UI.createWindow({  
@@ -10,5 +11,6 @@ function Highcharts(nav) {
 	win.add(webView);
 
 	return win;
-}
+};
 module.exports = Highcharts;
+

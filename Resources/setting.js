@@ -18,10 +18,12 @@ var text = Ti.UI.createLabel({
 
 self.add(text);
 
-
-
 //Twitter
-
+var screen_name = 'marugotom1kan';
+ 
+//ネットワーク越しのデータ取得で使う
+var xhr = Ti.Network.createHTTPClient();//非同期にネットワーク接続を実行
+var show = xhr.open("GET","https://api.twitter.com/1/users/user_timeline.json?screen_name"+screen_name);
 
 
 
@@ -38,8 +40,8 @@ var facebook_button = Ti.Facebook.createLoginButton({
 
 self.add(facebook_button);
 
-//ここどうなってるか調べる
-Ti.Facebook.requestWithGraphPath('me', {}, "GET",function(e){
+//ユーザ名をアラート。ここどうなってるか調べる
+/*Ti.Facebook.requestWithGraphPath('me', {}, "GET",function(e){
 	if(e.success){
 		var obj = JSON.parse(e.result);
 		alert(obj.name + "!");
@@ -47,3 +49,4 @@ Ti.Facebook.requestWithGraphPath('me', {}, "GET",function(e){
 	}
 });
 
+*/
