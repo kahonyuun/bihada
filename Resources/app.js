@@ -109,11 +109,11 @@ view2.add(buttonOut);
 //グラフ
 var winG = Titanium.UI.createWindow({
 	
-    ExampleWindow = require('/Highcharts');
+/*    ExampleWindow = require('/Highcharts');
 	exwin = new ExampleWindow();
 	exwin.open(); 
-
-	//path : "/etc/graph/Highcharts/highcharts"
+*/
+	path : "/etc/graph/Highcharts/highcharts"
 });
 var tabG = Titanium.UI.createTab({
 	icon : 'KS_nav_ui.png',

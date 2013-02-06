@@ -14,19 +14,19 @@ self.height = 410;
 function get_time(){
 var db = Ti.Database.open('timedb');
 
-db.execute('create table if not exists date(ID INTEGER,out_time DATETIME DEFAULT CURRENT_TIMESTAMP)');
-db.execute('insert into date (id,out_time) values (?,CURRENT_TIMESTAMP)');
+db.execute('update date set out_time=CURRENT_TIMESTAMP');
 //db.execute('insert into users (name,sales) values (?,?)','suzuki',300);
 
 var rows = db.execute('select rowid,* from date');
 Ti.API.info('row count = '+rows.getRowCount());
 
+
 while(rows.isValidRow()){
-	Ti.API.info('id:'+rows.fieldByName('rowid')+' TIME:'+ rows.fieldByName('out_time'))
+	Ti.API.info('id:'+rows.fieldByName('rowid')+' IN_TIME:'+ rows.fieldByName('in_time')+'　OUT_TIME:'+ rows.fieldByName('out_time'))
 	rows.next();
 }
 rows.closed;
-db.close();
+//db.close();
 db.remove();
 };
 get_time();
