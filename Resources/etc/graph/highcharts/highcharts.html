@@ -15,13 +15,15 @@
 			  height: 100%;
 			  width: 100%;
 			  top: 0;
-			  z-index: 100;
+			  z-index: 10;
 			}
 		</style>
 	</head>
     <body>
 		<script type="text/javascript">
-			$(function () {
+			/*デフォルトチャート
+			 * 
+			 $(function () {
 			    var chart;
 			    $(document).ready(function() {
 			        chart = new Highcharts.Chart({
@@ -89,9 +91,79 @@
 			            }
 			        });
 			    });
-			});
+			});*/
+			
+			//ベイシックバー
+			//Ti.UI.createView();
+				var chart;
+				$(document).ready(function() {
+					chart = new Highcharts.Chart({
+						chart : {
+							renderTo : 'container',
+							defaultSeriesType : 'bar'
+						},
+						title : {
+							text : '睡眠時間'
+						},
+						subtitle : {
+							text : 'にゃんにゃん'
+						},
+						xAxis : {
+							categories : ['2/1', '2/2', '2/3', '2/4', '2/5'],
+							title : {
+								text : null
+							}
+						},
+						yAxis : {
+							min : 0,
+							title : {
+								text : 'Population (millions)',
+								align : 'high'
+							}
+						},
+						tooltip : {
+							formatter : function() {
+								return '' + this.series.name + ': ' + this.y + ' millions';
+							}
+						},
+						plotOptions : {
+							bar : {
+								dataLabels : {
+									enabled : true
+								}
+							}
+						},
+						legend : {
+							layout : 'vertical',
+							align : 'right',
+							verticalAlign : 'top',
+							x : -100,
+							y : 100,
+							floating : true,
+							borderWidth : 1,
+							backgroundColor : '#FFFFFF',
+							shadow : true
+						},
+						credits : {
+							enabled : false
+						},
+						series : [{
+							name : '総合睡眠時間',
+							data : [7, 31, 35, 03, 2]
+						}, {
+							name : '美肌タイム',
+							data : [13, 16, 27, 28, 6]
+						}, {
+							name : 'c',
+							data : [37, 31, 40, 32, 34]
+						}]
+					});
+
+				});
+
 		</script>
-		<div id="chart-drag-handle"></div>
-		<div id="container" style="min-width: 400px; height: 400px; margin: 0"></div>
+        <div id="container" style="width: 300px; height: 200px; margin: 0 auto"></div>
+		<!--<div id="chart-drag-handle"></div>
+		<div id="container" style="min-width: 400px; height: 400px; margin: 0"></div>-->
 	</body>
 </html>

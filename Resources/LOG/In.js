@@ -8,26 +8,34 @@ self.height = 410;
 
 //DB
 function get_time(){
-var db = Ti.Database.open('timedb');
+var db = Ti.Database.open('db');
 
-db.execute('create table if not exists date(ID INTEGER,in_time DATETIME DEFAULT CURRENT_TIMESTAMP,out_time DATETIME DEFAULT CURRENT_TIMESTAMP)');
+db.execute('create table if not exists date(id INTEGER,in_time DATETIME DEFAULT CURRENT_TIMESTAMP,out_time DATETIME DEFAULT CURRENT_TIMESTAMP)');
 db.execute('insert into date (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
-//db.execute('insert into users (name,sales) values (?,?)','suzuki',300);
 
 var rows = db.execute('select rowid,* from date');
 Ti.API.info('row count = '+rows.getRowCount());
-Ti.API.info(rows);
+//Ti.API.info(rows);
 
 while(rows.isValidRow()){
 	Ti.API.info('id:'+rows.fieldByName('rowid')+' IN_TIME:'+ rows.fieldByName('in_time')+' OUT_TIME:'+ rows.fieldByName('out_time'))
 	rows.next();
 }
+
 rows.closed;
 //db.remove();
 db.close();
 };
+
+/*
+ * 使えない↓
+ function delete_db(){
+	var db = Ti.Database.open('db');
+	db.execute('DELETE FROM db');
+}
+*/
 get_time();
-//db.remove();
+//delete_db();
 
 
 

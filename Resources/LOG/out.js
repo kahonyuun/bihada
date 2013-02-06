@@ -12,12 +12,12 @@ self.height = 410;
 
 //DB
 function get_time(){
-var db = Ti.Database.open('timedb');
+var db = Ti.Database.open('db');
 
-db.execute('update date set out_time=CURRENT_TIMESTAMP');
+db.execute('update db set out_time=CURRENT_TIMESTAMP');
 //db.execute('insert into users (name,sales) values (?,?)','suzuki',300);
 
-var rows = db.execute('select rowid,* from date');
+var rows = db.execute('select rowid,* from db');
 Ti.API.info('row count = '+rows.getRowCount());
 
 
@@ -26,8 +26,8 @@ while(rows.isValidRow()){
 	rows.next();
 }
 rows.closed;
-//db.close();
-db.remove();
+db.close();
+//db.remove();
 };
 get_time();
 
