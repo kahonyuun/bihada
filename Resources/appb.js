@@ -60,6 +60,31 @@ buttonOut.addEventListener('click', function() {
 
 view2.add(buttonIn);
 view2.add(buttonOut);
+
+//時計
+var timer = Ti.UI.createLabel({
+	font : {
+		fontSize : 48,
+		fontFamily:"Helvetica Neue"
+	},
+	textAlign:"center",
+	width:"auto",
+	top:40,
+	height:60,
+});
+
+setInterval(function(){
+	var d = new Date();
+	var t = {};
+	t.hour = ("0" + d.getHours() ).slice(-2);
+	t.minute = ("0" + d.getMinutes() ).slice(-2);
+	t.second = ("0" + d.getSeconds() ).slice(-2);
+	timer.text = t.hour + ":" + t.minute + ":" + t.second;
+},100 );	
+view1.add(timer);
+
+
+
 /*
 //Parse
 //insert global variavles containing credentialsつまり証明書
@@ -72,11 +97,6 @@ var parse = require('parse');
 var client  = new parse.Client(APPLICATION_ID,MASTER_KEY);
 
 */
-
-Ti.App.Properties.setString('message', 'こんにちん');
-Ti.App.Properties.setString('when','2013/02/01 018:15:00');
-var service = Ti.App.iOS.registerBackgroundService({url:'perse.js'});
-
 
 
 

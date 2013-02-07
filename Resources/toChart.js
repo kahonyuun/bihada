@@ -1,21 +1,12 @@
-//var webView = 
-function webView(){
-	 ExampleWindow = require('/charts');
-	exwin = new ExampleWindow();
-	exwin.open(); 
+ function webView(){
+	 chartView = require('/charts');
+	chview = new chartView();
+	chview.show(); 
+Ti.API.info('toChart')
 };
 webView();
-/*
-var win = Ti.UI.createWindow();
-var viewTop = Ti.UI.createView({
-	top:0,
-	hight:'50%',
-	width:'100%',
-});
-win.add(viewTop);
-//viewTop.add(webView);
-*/
-// ツールバーを表示する
+
+// ツールバー表示
 /*var toolbar = null;
 if(Titanium.Platform.name == 'iPhone OS'){
   var button = Titanium.UI.createButton({

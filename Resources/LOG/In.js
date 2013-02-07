@@ -9,7 +9,6 @@ self.height = 410;
 //DB
 function get_time(){
 var db = Ti.Database.open('db');
-
 db.execute('create table if not exists date(id INTEGER,in_time DATETIME DEFAULT CURRENT_TIMESTAMP,out_time DATETIME DEFAULT CURRENT_TIMESTAMP)');
 db.execute('insert into date (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
 
@@ -23,7 +22,6 @@ while(rows.isValidRow()){
 }
 
 rows.closed;
-//db.remove();
 db.close();
 };
 

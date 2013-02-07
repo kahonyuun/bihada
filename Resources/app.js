@@ -1,7 +1,3 @@
-var appa = require('appa');
-appa.timer();
-Ti.API.info('')
-
 // create tab group
 function app (){
 var tabGroup = Titanium.UI.createTabGroup();
@@ -15,97 +11,6 @@ var tab1 = Titanium.UI.createTab({
 	title : 'LOG',
 	window : win1
 });
-/*
-var view1 = Ti.UI.createView({
-	top : "0%",
-	width : "100%",
-	height : 250,
-	layout : 'absolute',
-	//backgroundColor :
-});
-win1.add(view1);
-
-//画像
-var topImage = Ti.UI.createImageView({
-	image : "image/bihada.jpg"
-});
-view1.add(topImage);
-*/
-//時計
-/*
-var timer = Ti.UI.createLabel({
-	font : {
-		fontSize : 48,
-		fontFamily:"Helvetica Neue"
-	},
-	textAlign:"center",
-	width:"auto",
-	top:40,
-	height:60,
-});
-
-setInterval(function(){
-	var d = new Date();
-	var t = {};
-	t.hour = ("0" + d.getHours() ).slice(-2);
-	t.minute = ("0" + d.getMinutes() ).slice(-2);
-	t.second = ("0" + d.getSeconds() ).slice(-2);
-	timer.text = t.hour + ":" + t.minute + ":" + t.second;
-},100 );	
-*/
-//view1.add(timer);
-
-
-//下View
-/*
-var view2 = Ti.UI.createView({
-	top : "80%",
-	width : "100%",
-	height : 150,
-	layout : 'absolute',
-	//backgroundColor : 'black'
-});
-win1.add(view2);
-
-//未解決新しいtabかWindowを開いてページ遷移
-var buttonIn = Ti.UI.createButton({
-	title : '布団IN!',
-	height : 50,
-	top : '10%',
-	width : 80,
-	left : 20,
-});
-var buttonOut = Ti.UI.createButton({
-	title : '布団OUT!',
-	height : 50,
-	top : '10%',
-	width : 80,
-	right : 20,
-});
-
-buttonIn.addEventListener('click', function() {
-	var win = Ti.UI.createWindow({
-		url : "LOG/In.js",
-		backgroundColor : "#fff"
-	});
-	win.open();
-	//Ti.UI.currentTab.open(win);
-	Ti.API.info('IN')
-});
-
-buttonOut.addEventListener('click', function() {
-	//tabGroup.open(tabS);
-	var win = Ti.UI.createWindow({
-		url : "LOG/out.js",
-		backgroundColor : "fff"
-	});
-	win.open();
-	Ti.API.info('out')
-});
-
-view2.add(buttonIn);
-view2.add(buttonOut);
-*/
 //グラフ
 var winG = Titanium.UI.createWindow({
 	url :"toChart.js" 
@@ -148,20 +53,47 @@ tabGroup.open();
 }
 app();
 
+//プッシュ通知②
+/*Ti.App.iOS.cancelAllLocalNotifications();
+var notifications = [];
+notification_params = {
+      alertBody: '2/7だよこんにちは',
+      alertAction: 'OK',
+      userInfo: {
+        notice:"通知の時間"// {param1:'これはparam1', param2:'これはparam2'}
+      },
+      sound: "default",//'sound.mp3',
+      repeat: 'daily',
+//      date:new Date((new Date()).getTime() +(1000 * 10))
+    };
+notifications.push(Ti.App.iOS.scheduleLocalNotification
+	(notification_params));
+/*notifications.push(Ti.App.iOS.scheduleLocalNotification
+	(userInfo));
+	*/	/*
+Ti.App.iOS.addEventListener("notification", function(e) {
+	Ti.API.info(e.userInfo.notice);
+});
+*/
+
+//↓キーと値でデータを管理できるオブジェクト,
+Ti.App.Properties.setString('message', 'オブジェクト！');
+Ti.App.Properties.setString('when',new Date((new Date()).getTime() +(1000 * 10)));
+var service = Ti.App.iOS.registerBackgroundService({url:'parse.js'});
 
 
 
-
-//プッシュ通知
+//プッシュ通知①
+/*
 var notification;
 
 Ti.API.info("notification schduled");
 notification = Ti.App.iOS.scheduleLocalNotification({
-	date : new Date(new Date().getTime() + 10000),
+	date : new Date(new Date().getTime() + (1000 * 10)),
 	repeat : "daily",
 	alertBody : "起動から10秒後だよ！",
 	alertAction : "アプリを開く",
-	badge : (new Date).getSeconds(),
+	//badge : (new Date).getSeconds(),
 	sound : "default",
 	userInfo : {
 		foo : "push"
@@ -177,4 +109,13 @@ Ti.App.addEventListener("resume", function() {
 	notification.cancel();
 	// Ti.App.iOS.cancelAllLocalNotifications();
 });
+*/
 
+//create DB
+/*function get_time(){
+var db = Ti.Database.open('test1');
+
+db.execute('create table if not exists date(id INTEGER,in_time DATETIME DEFAULT CURRENT_TIMESTAMP,out_time DATETIME DEFAULT CURRENT_TIMESTAMP)');
+//db.remove();
+db.close();
+};*/
