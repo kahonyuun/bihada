@@ -8,8 +8,9 @@ function Highcharts(nav) {
 	var webView = Ti.UI.createWebView({
 		url: '/etc/graph/highcharts/highcharts.html'
 	});
-	//win.add(webView);
+	view.add(webView);
 	return view;
+	Ti.API.info('return');
 };
 module.exports = Highcharts;
 

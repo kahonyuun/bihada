@@ -13,13 +13,18 @@ self.height = 410;
 //DB
 function get_time(){
 var db = Ti.Database.open('db');
+//rowidを取得
+// http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.Database.ResultSet
+var rows = db.execute('select rowid from date order by rowid desc limit 1');
+//
+var target_rowid = rows.fieldByName('rowid');
 
-db.execute('update db set out_time=CURRENT_TIMESTAMP');
+Ti.API.info(target_rowid);
+db.execute('update date set out_time=CURRENT_TIMESTAMP where rowid=?', target_rowid);
 //db.execute('insert into users (name,sales) values (?,?)','suzuki',300);
 
-var rows = db.execute('select rowid,* from db');
+var rows = db.execute('select rowid,* from date');
 Ti.API.info('row count = '+rows.getRowCount());
-
 
 while(rows.isValidRow()){
 	Ti.API.info('id:'+rows.fieldByName('rowid')+' IN_TIME:'+ rows.fieldByName('in_time')+'　OUT_TIME:'+ rows.fieldByName('out_time'))
