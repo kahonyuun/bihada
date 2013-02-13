@@ -1,6 +1,6 @@
 exports.init = function(){
 	//Ti.API.info('init')
-	win = Ti.UI.createWindow;
+	//win = Ti.UI.createWindow;
 		
 	 self = Ti.UI.currentWindow;
 	//self.barColor = "black";

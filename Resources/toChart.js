@@ -2,7 +2,7 @@
 	 chartView = require('/charts');
 	chview = new chartView();
 	chview.show(); 
-Ti.API.info('toChart')
+Ti.API.info('toChart2')
 };
 webView();
 

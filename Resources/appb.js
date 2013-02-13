@@ -1,5 +1,7 @@
-var win = Ti.UI.currentWindow;
+//view1=上View
+//view2=下view
 
+var win = Ti.UI.currentWindow;
 var view1 = Ti.UI.createView({
 	top : "0%",
 	width : "100%",
@@ -38,13 +40,12 @@ var view2 = Ti.UI.createView({
 });
 win.add(view2);
 buttonIn.addEventListener('click', function() {
-	var win1 = Ti.UI.createWindow({
+	var win = Ti.UI.createWindow({
 		url : "LOG/In.js",
 		backgroundColor : "#fff"
 	});
-	//win.open();
-	Ti.UI.currentTab.open(win1);
-	//Ti.UI.currentTab.open(win);
+	//win.open();新しいwinを作られて戻れなくなる
+	Ti.UI.currentTab.open(win);
 	Ti.API.info('IN')
 });
 
@@ -54,7 +55,7 @@ buttonOut.addEventListener('click', function() {
 		url : "LOG/out.js",
 		backgroundColor : "fff"
 	});
-	win.open();
+	Ti.UI.currentTab.open(win);
 	Ti.API.info('out')
 });
 

@@ -11,7 +11,7 @@ var tab1 = Titanium.UI.createTab({
 	title : 'LOG',
 	window : win1
 });
-//グラフ
+//チャート
 var winG = Titanium.UI.createWindow({
 	url :"toChart.js" 
 });
@@ -80,7 +80,6 @@ Ti.App.iOS.addEventListener("notification", function(e) {
 Ti.App.Properties.setString('message', 'オブジェクト！');
 Ti.App.Properties.setString('when',new Date((new Date()).getTime() +(1000 * 10)));
 var service = Ti.App.iOS.registerBackgroundService({url:'parse.js'});
-
 
 
 //プッシュ通知①

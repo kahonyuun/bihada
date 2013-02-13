@@ -1,3 +1,4 @@
+//テスト用ファイル、つかってない
 /*var common = require('common');
 common.init();
 var self = Ti.UI.currentWindow;

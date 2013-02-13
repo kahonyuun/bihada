@@ -12,11 +12,10 @@ self.height = 410;
 
 //DB
 function get_time(){
-var db = Ti.Database.open('db');
+var db = Ti.Database.open('db');//本番はtime_db
 //rowidを取得
 // http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.Database.ResultSet
 var rows = db.execute('select rowid from date order by rowid desc limit 1');
-//
 var target_rowid = rows.fieldByName('rowid');
 
 Ti.API.info(target_rowid);
