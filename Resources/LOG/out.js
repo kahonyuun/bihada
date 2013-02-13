@@ -24,7 +24,10 @@ db.execute('update date set out_time=CURRENT_TIMESTAMP where rowid=?', target_ro
 
 var rows = db.execute('select rowid,* from date');
 Ti.API.info('row count = '+rows.getRowCount());
-
+/*var common = require('common');
+common.init();
+*/
+//id自体には何も入っておらず、rowidが連番になっていく
 while(rows.isValidRow()){
 	Ti.API.info('id:'+rows.fieldByName('rowid')+' IN_TIME:'+ rows.fieldByName('in_time')+'　OUT_TIME:'+ rows.fieldByName('out_time'))
 	rows.next();

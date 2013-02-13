@@ -121,11 +121,13 @@
 								align : 'high'
 							}
 						},
+						//マウスカーソルを当てた時にデータ表示
 						tooltip : {
 							formatter : function() {
 								return '' + this.series.name + ': ' + this.y + ' millions';
 							}
 						},
+						//グラフエリアの表示のオプション
 						plotOptions : {
 							bar : {
 								dataLabels : {
@@ -133,6 +135,7 @@
 								}
 							}
 						},
+						//凡例を表示させたい場合に指定
 						legend : {
 							layout : 'vertical',
 							align : 'right',
@@ -148,9 +151,11 @@
 							enabled : false
 						},
 						series : [{
+							//青
 							name : '総合睡眠時間',
 							data : [7, 31, 35, 03, 2]
 						}, {
+							//赤
 							name : '美肌タイム',
 							data : [13, 16, 27, 28, 6]
 						}, {

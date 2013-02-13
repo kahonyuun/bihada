@@ -5,7 +5,7 @@ var win = Ti.UI.currentWindow;
 var view1 = Ti.UI.createView({
 	top : "0%",
 	width : "100%",
-	height : 250,
+	height : 299,
 	layout : 'absolute',
 	//backgroundColor :
 });
@@ -13,7 +13,10 @@ win.add(view1);
 
 //画像
 var topImage = Ti.UI.createImageView({
-	image : "image/bihada.jpg"
+	image : "image/image.jpg",
+	top :0,
+	height:299,
+	width:"100%"
 });
 view1.add(topImage);
 
@@ -32,9 +35,9 @@ var buttonOut = Ti.UI.createButton({
 	right : 20,
 });
 var view2 = Ti.UI.createView({
-	top : "80%",
+	top : 300,
 	width : "100%",
-	height : 150,
+	//height : 150,
 	layout : 'absolute',
 	//backgroundColor : 'black'
 });

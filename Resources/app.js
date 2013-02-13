@@ -1,3 +1,6 @@
+/*var common = require('common');
+common.init();
+*/
 // create tab group
 function app (){
 var tabGroup = Titanium.UI.createTabGroup();
@@ -11,6 +14,7 @@ var tab1 = Titanium.UI.createTab({
 	title : 'LOG',
 	window : win1
 });
+
 //チャート
 var winG = Titanium.UI.createWindow({
 	url :"toChart.js" 
