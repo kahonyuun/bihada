@@ -1,6 +1,6 @@
 function get_data(){
 var db = Ti.Database.open('db');
-db.execute('select rowid from date order by ');
+db.execute('select rowid from date order by');
 db.execute('insert into date (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
 
 var rows = db.execute('select rowid,* from date');

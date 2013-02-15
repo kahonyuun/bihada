@@ -1,7 +1,6 @@
 /*var appa = require('appa');
  common.timer();
- */
-win = Ti.UI.createWindow;
+*/
 self = Ti.UI.currentWindow;
 self.top = 0;
 self.height = 410;
@@ -88,10 +87,3 @@ self.add(tweet_button);
 tweet_button.addEventListener('click', function(){
 	tweet()
 });
-
-
-/*
-	var blur = self.addEventListener('blur',function(e){
-	Ti.UI.currentWindow.close();
-	});
-*/

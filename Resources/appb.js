@@ -87,8 +87,6 @@ setInterval(function(){
 },100 );	
 view1.add(timer);
 
-
-
 /*
 //Parse
 //insert global variavles containing credentialsつまり証明書
@@ -99,7 +97,6 @@ var parse = require('parse');
 
 //create Parse Client
 var client  = new parse.Client(APPLICATION_ID,MASTER_KEY);
-
 */
 
 

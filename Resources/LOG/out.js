@@ -1,9 +1,10 @@
-/*var common = require('../common/common');
- common.init();
+/*var twi = require('twi');
+ twi.tweet();
+*/
 
- self.top = 0;
- self.height = 410;
- */
+ //self.top = 0;
+ //self.height = 410;
+ 
 Ti.API.info('OUT')
 win = Ti.UI.createWindow;
 self = Ti.UI.currentWindow;
@@ -15,12 +16,13 @@ function get_time(){
 var db = Ti.Database.open('db');//本番はtime_db
 //rowidを取得
 // http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.Database.ResultSet
+//結果はresultsetオブジェクトとし返る
 var rows = db.execute('select rowid from date order by rowid desc limit 1');
 var target_rowid = rows.fieldByName('rowid');
 
 Ti.API.info(target_rowid);
 db.execute('update date set out_time=CURRENT_TIMESTAMP where rowid=?', target_rowid);
-//db.execute('insert into users (name,sales) values (?,?)','suzuki',300);
+
 
 var rows = db.execute('select rowid,* from date');
 Ti.API.info('row count = '+rows.getRowCount());
@@ -83,9 +85,37 @@ tweet_button.addEventListener('click', function(){
 	tweet()
 });
 
-
+//ツイート文選択・読み込み・表示
 /*
-	var blur = self.addEventListener('blur',function(e){
-	Ti.UI.currentWindow.close();
-	});
+1,IN/OUTボタンを押した時にcurrent timeをget/insertされたDBの時間を持ってくる
+2,特定時間がpostすべき時間と重なったら
+3,IN/OUTページに表示
+4,ツイートさせる
+
+
+function getTime({
+	var currentTime = newDate();
+	var hours = currentTime.getHours();
+	var minutes = currentTime.getMonth()+1;
+	
+	if(hours<22){
+		var lavel = Ti.UI.createLabel({
+			text: '22時前よん';
+			top:50,
+			left:50,
+			height:100
+		});
+	};
+});
 */
+// Add to the parent view.
+//parentView.add(aLabel);
+
+//function get_twilist (){
+//var twi = require('twi').window;
+
+//self.add(twi);
+
+	
+//};
+
