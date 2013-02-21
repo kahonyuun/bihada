@@ -8,6 +8,8 @@ function Highcharts(nav) {
 
 	var webView = Ti.UI.createWebView({
 		url: '/etc/graph/highcharts/highcharts.html'
+		// url で指定したファイルに変数をわたしたい hamada
+		// param: total_sleep_array,
 	});
 	self.add(view);
 	view.add(webView);
