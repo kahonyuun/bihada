@@ -5,7 +5,7 @@
  //self.top = 0;
  //self.height = 410;
  
-Ti.API.info('OUT')
+//Ti.API.info('OUT')
 win = Ti.UI.createWindow;
 self = Ti.UI.currentWindow;
 self.top = 0;
@@ -20,15 +20,13 @@ var db = Ti.Database.open('db');//本番はtime_db
 var rows = db.execute('select rowid from date order by rowid desc limit 1');
 var target_rowid = rows.fieldByName('rowid');
 
-Ti.API.info(target_rowid);
+//Ti.API.info(target_rowid);
 db.execute('update date set out_time=CURRENT_TIMESTAMP where rowid=?', target_rowid);
 
 
 var rows = db.execute('select rowid,* from date');
-Ti.API.info('row count = '+rows.getRowCount());
-/*var common = require('common');
-common.init();
-*/
+//Ti.API.info('row count = '+rows.getRowCount());
+
 //id自体には何も入っておらず、rowidが連番になっていく
 while(rows.isValidRow()){
 	Ti.API.info('id:'+rows.fieldByName('rowid')+' IN_TIME:'+ rows.fieldByName('in_time')+'　OUT_TIME:'+ rows.fieldByName('out_time'))
@@ -91,31 +89,5 @@ tweet_button.addEventListener('click', function(){
 2,特定時間がpostすべき時間と重なったら
 3,IN/OUTページに表示
 4,ツイートさせる
-
-
-function getTime({
-	var currentTime = newDate();
-	var hours = currentTime.getHours();
-	var minutes = currentTime.getMonth()+1;
-	
-	if(hours<22){
-		var lavel = Ti.UI.createLabel({
-			text: '22時前よん';
-			top:50,
-			left:50,
-			height:100
-		});
-	};
-});
 */
-// Add to the parent view.
-//parentView.add(aLabel);
-
-//function get_twilist (){
-//var twi = require('twi').window;
-
-//self.add(twi);
-
-	
-//};
 

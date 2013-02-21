@@ -1,3 +1,5 @@
+//Tweetさせる
+
 Ti.API.info("twi1");
 
 //DBのcurrent time get
@@ -14,3 +16,4 @@ var twi = Ti.UI.createLabel({
 };
 post();
 Ti.API.info("twi2");
+

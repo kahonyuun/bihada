@@ -87,17 +87,21 @@ setInterval(function(){
 },100 );	
 view1.add(timer);
 
-/*
-//Parse
-//insert global variavles containing credentialsつまり証明書
-Ti.include('credentials.js')
-
-//include Parse module
-var parse = require('parse');
-
-//create Parse Client
-var client  = new parse.Client(APPLICATION_ID,MASTER_KEY);
-*/
-
+//TODO:in_timeの12h(43200秒)後に起きた？alert 
+//http://selfkleptomaniac.org/archives/2136
+Ti.App.iOS.cancelAllLocalNotifications();
+var notifications = [];
+notification_params = {
+      alertBody: '起きてますかあああ！！',
+      alertAction: 'wake up OK',
+      userInfo: {
+  //      data: {param1:'これはparam1', param2:'これはparam2'}
+      },
+      //sound: 'sound.mp3',
+      repeat: 'daily',
+   //↓ここがよくわかってない、Inした時間から12h後にしたい
+      date: new Date((new Date()).getTime() +(1000 * 10))//12h.1h=3600秒
+    };
+notifications.push(Ti.App.iOS.scheduleLocalNotification(notification_params));
 
 

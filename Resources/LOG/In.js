@@ -15,20 +15,17 @@ function get_time() {
 	db.execute('insert into date (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
 
 	var rows = db.execute('select rowid,* from date');
-	Ti.API.info('row count = ' + rows.getRowCount());
-	//Ti.API.info(rows);
+	//Ti.API.info('row count = ' + rows.getRowCount());
+	Ti.API.info(rows);
 
 	while (rows.isValidRow()) {
-		Ti.API.info('id:' + rows.fieldByName('rowid') + ' IN_TIME:' + rows.fieldByName('in_time') + ' OUT_TIME:' + rows.fieldByName('out_time'))
+		//Ti.API.info('id:' + rows.fieldByName('rowid') + ' IN_TIME:' + rows.fieldByName('in_time') + ' OUT_TIME:' + rows.fieldByName('out_time'))
 		rows.next();
 	}
-
 	rows.closed
 	db.close();
 };
-
-/*
- * 使えない↓
+/* 使えない↓
  function delete_db(){
  var db = Ti.Database.open('db');
  db.execute('DELETE FROM db');
@@ -84,21 +81,21 @@ tweet_button.addEventListener('click', function() {
 });
 
 // added by hamada
-Ti.API.info('hamada');
+Ti.API.info('kyon');
 /* DBから必要なデータを取得 */
 var db = Ti.Database.open('db');
 var rows = db.execute('select rowid,* from date');
 while (rows.isValidRow()) {
 	// For debug
-	Ti.API.info('id: ' + rows.fieldByName('rowid'));
-	Ti.API.info('IN_TIME: ' + rows.fieldByName('in_time'));
+	/*Ti.API.info('id: ' + rows.fieldByName('rowid'));
+	Ti.API.info('IN_TIME: ' + rows.fieldByName('in_time'));//2013-02-21 05:58:26みたいな感じ
 	Ti.API.info('OUT_TIME: ' + rows.fieldByName('out_time'));
-
+*/
 	// 変数に入れる
 	var in_time_string = rows.fieldByName('in_time');
 	var out_time_string = rows.fieldByName('out_time');
 	
-	// timestamp型に変換
+	// timestamp型に変換、4桁の数字
 	reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
 	dateArray = reggie.exec(in_time_string);
 	var in_time_date = new Date(
@@ -112,21 +109,34 @@ while (rows.isValidRow()) {
 	var in_time_timestamp = in_time_date.getTime();
 	
 	// TODO: out_time も同様に処理する
+	/*dateArray  = reggie.exec(out_time_string);
+	var out_time_date = new Date(
+	(+dateArray[1]),
+	(+dateArray[2]) - 1,
+	(+dateArray[3]),
+	(+dateArray[4]),
+	(+dateArray[5]),
+	(+dateArray[6])
+);
+var out_time_timestamp = out_time_date.getTime();
+*/
 	// 一旦ダミーをあててる
 	var out_time_timestamp = 1360909999000;
-	Ti.API.info('in_time_date: ' + in_time_timestamp);
-	Ti.API.info('out_time_date: ' + out_time_timestamp);
+	//Ti.API.info('in_time_date: ' + in_time_timestamp);//1360185258000みたいな
+	//Ti.API.info('out_time_date: ' + out_time_timestamp);
 	
 	// 睡眠時間を計算する
 	var sleep_time_timestamp = out_time_timestamp - in_time_timestamp;
 	Ti.API.info('sleep_time_timestamp: ' + sleep_time_timestamp)
 	
-	// TODO: 時間(:分)に変換する
-
+	/*TODO: 時間(:分)に変換する。sleep_time_timestampがなんの数字を
+	 consoleにだしてるかよくわからん
+	var　total_sleep_time = 
+*/
+	
 	// 次の要素に進む
 	rows.next();
 }
 
 /* データの加工 */
 var sleep_total_array = [6, 7.5, 8, 9];
-

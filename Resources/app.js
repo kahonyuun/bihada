@@ -58,8 +58,8 @@ tabGroup.open();
 app();
 
 //プッシュ通知②
-/*Ti.App.iOS.cancelAllLocalNotifications();
-var notifications = [];
+//Ti.App.iOS.cancelAllLocalNotifications();
+/*var notifications = [];
 notification_params = {
       alertBody: '2/7だよこんにちは',
       alertAction: 'OK',
@@ -81,40 +81,14 @@ Ti.App.iOS.addEventListener("notification", function(e) {
 */
 
 //↓キーと値でデータを管理できるオブジェクト,
-Ti.App.Properties.setString('message', 'オブジェクト！');
+/*Ti.App.Properties.setString('message', 'オブジェクト！');
 Ti.App.Properties.setString('when',new Date((new Date()).getTime() +(1000 * 10)));
 var service = Ti.App.iOS.registerBackgroundService({url:'parse.js'});
-
-
-//プッシュ通知①
-/*
-var notification;
-
-Ti.API.info("notification schduled");
-notification = Ti.App.iOS.scheduleLocalNotification({
-	date : new Date(new Date().getTime() + (1000 * 10)),
-	repeat : "daily",
-	alertBody : "起動から10秒後だよ！",
-	alertAction : "アプリを開く",
-	//badge : (new Date).getSeconds(),
-	sound : "default",
-	userInfo : {
-		foo : "push"
-	}
-});
-
-Ti.App.iOS.addEventListener("notification", function(e) {
-	Ti.API.info(e.userInfo.foo);
-});
-
-Ti.App.addEventListener("resume", function() {
-	Ti.API.info("notification canceld");
-	notification.cancel();
-	// Ti.App.iOS.cancelAllLocalNotifications();
-});
 */
 
-//create DB
+
+
+///TODO:アプリをしたらcreate DB
 /*function get_time(){
 var db = Ti.Database.open('test1');
 

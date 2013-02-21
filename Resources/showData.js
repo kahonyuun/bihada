@@ -1,10 +1,8 @@
 function get_data(){
-var db = Ti.Database.open('db');
-db.execute('select rowid from date order by');
-db.execute('insert into date (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
+var db = Ti.Database.install('db','test');
+db.execute('select rowid from date order by limit 1');
 
-var rows = db.execute('select rowid,* from date');
-Ti.API.info('row count = '+rows.getRowCount());
+var rows = db.execute('select * from date');
 //Ti.API.info(rows);
 
 while(rows.isValidRow()){
