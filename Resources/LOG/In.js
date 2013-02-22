@@ -86,11 +86,11 @@ Ti.API.info('kyon');
 var db = Ti.Database.open('db');
 var rows = db.execute('select rowid,* from date');
 while (rows.isValidRow()) {
-	// For debug
-	/*Ti.API.info('id: ' + rows.fieldByName('rowid'));
+	// For Debug
+	Ti.API.info('id: ' + rows.fieldByName('rowid'));
 	Ti.API.info('IN_TIME: ' + rows.fieldByName('in_time'));//2013-02-21 05:58:26みたいな感じ
 	Ti.API.info('OUT_TIME: ' + rows.fieldByName('out_time'));
-*/
+	
 	// 変数に入れる
 	var in_time_string = rows.fieldByName('in_time');
 	var out_time_string = rows.fieldByName('out_time');
@@ -109,34 +109,49 @@ while (rows.isValidRow()) {
 	var in_time_timestamp = in_time_date.getTime();
 	
 	// TODO: out_time も同様に処理する
-	/*dateArray  = reggie.exec(out_time_string);
-	var out_time_date = new Date(
-	(+dateArray[1]),
-	(+dateArray[2]) - 1,
-	(+dateArray[3]),
-	(+dateArray[4]),
-	(+dateArray[5]),
-	(+dateArray[6])
-);
-var out_time_timestamp = out_time_date.getTime();
-*/
-	// 一旦ダミーをあててる
-	var out_time_timestamp = 1360909999000;
-	//Ti.API.info('in_time_date: ' + in_time_timestamp);//1360185258000みたいな
-	//Ti.API.info('out_time_date: ' + out_time_timestamp);
+	reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
+	outArray  = reggie.exec(out_time_string);
+	if (outArray == null) {
+		var out_time_timestamp = null;
+	} else {
+		var out_time_date = new Date(
+			(+outArray[1]),
+			(+outArray[2]) - 1,
+			(+outArray[3]),
+			(+outArray[4]),
+			(+outArray[5]),
+			(+outArray[6])
+		);
+		var out_time_timestamp = out_time_date.getTime();
+	}
+
+	// For Debug
+	// Ti.API.info('in_time_date: ' + in_time_timestamp);
+	// Ti.API.info('out_time_date: ' + out_time_timestamp);
 	
 	// 睡眠時間を計算する
-	var sleep_time_timestamp = out_time_timestamp - in_time_timestamp;
-	Ti.API.info('sleep_time_timestamp: ' + sleep_time_timestamp)
+	var sleep_time_timestamp = null;
+	if (out_time_timestamp != null && in_time_timestamp != null){
+		sleep_time_timestamp = out_time_timestamp - in_time_timestamp;
+		Ti.API.info("in time :"+in_time_timestamp);
+		Ti.API.info('out time :' + out_time_timestamp);
+		// Ti.API.info('sleep_time_timestamp: ' + sleep_time_timestamp);
+	} else {
+		Ti.API.info('sleep_time_timestamp: ' + '計算できない');		
+	}
 	
-	/*TODO: 時間(:分)に変換する。sleep_time_timestampがなんの数字を
-	 consoleにだしてるかよくわからん
-	var　total_sleep_time = 
-*/
+	
+	// db.close();
+ 	// throw new Error("exit()");
+ 	// 時間(:分)に変換する。
+ 	// sleep_time_timestampがなんの数字をconsoleにだしてるかよくわからん
+	if (sleep_time_timestamp != null) {
+		hour = sleep_time_timestamp / 60 / 60 / 1000;
+		Ti.API.info('sleep_time_hour: ' + hour + ' hour');		
+	} else {
+		Ti.API.info('sleep_time_hour: ' + '計算できない');		
+	}
 	
 	// 次の要素に進む
 	rows.next();
-}
-
-/* データの加工 */
-var sleep_total_array = [6, 7.5, 8, 9];
+};
