@@ -1,4 +1,5 @@
-exports.twicommon = function(){
+exports.twilib = function(){
+Ti.API.info('twilib');
 var twitter = {
     //--------------------------------------------------------------
     // method[verify_credentials]

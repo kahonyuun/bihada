@@ -23,7 +23,7 @@ self.add(text);
 //--------------------------------------
 // twitter関連の共通処理を取り込みます。
 var twilib = require('twilib');
-twilib.twicommon();
+twilib.twilib();
 
 
 //--------------------------------------
