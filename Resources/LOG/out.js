@@ -137,7 +137,7 @@ Ti.API.info('sleep_time.js');
 		// throw new Error("exit()");
 		// 時間(:分)に変換する。
 		if (sleep_time_timestamp != null) {
-			hour = Math.round(sleep_time_timestamp / 60 / 60 / 1000 /64+ 25569);
+			hour = Math.round(sleep_time_timestamp / 60 / 60 / 1000);
 			minute = Math.round(sleep_time_timestamp / 60 / 1000);
 			Ti.API.info('sleep_time_hour: ' + hour + '時間');
 			Ti.API.info('sleep_time_min: ' + minute + '分');
