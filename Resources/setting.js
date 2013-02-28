@@ -40,6 +40,7 @@ var tableView = null;
 //--------------------------------------
 function reload_timeline(){
     // 検索結果をTableViewのRowとして格納します。
+    //TODO:cant find variable twitter "twilib"読み込めてない
     twitter.search(Ti.Network.encodeURIComponent('#subwayjp -RT'), 25, 1, function(json){
         // 表示データを格納する配列
         var rows = [];
