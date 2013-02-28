@@ -1,5 +1,5 @@
 exports.init = function(){
-	Ti.API.info('hoge');
+	Ti.API.info('timer.js');
 
 //画像
 /*var topImage = Ti.UI.createImageView({
@@ -9,7 +9,7 @@ exports.init = function(){
 };
 
 exports.timer = function(){
-	Ti.API.info('timer');
+	//Ti.API.info('timer');
 	
 	var timer = Ti.UI.createLabel({
 	font : {
