@@ -1,3 +1,7 @@
+//currentでhtmlを開くためのプリッジファイル
+//柳田さん
+
+
 function Highcharts(nav) {
 Ti.API.info("chart_test.js");
 	var self = Ti.UI.currentWindow
@@ -12,9 +16,14 @@ Ti.API.info("chart_test.js");
 		// param: total_sleep_array,
 		
 	});
+	
 	webView.addEventListener('load',function(e)
 	{
-		webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
+		var i;
+		for(i=0; i<4; i++){
+		};
+		webView.evalJS("chart_data(count = i)");
+		//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
 	});
 	self.add(view);
 	view.add(webView);

@@ -34,6 +34,16 @@
 
 			var chart;
 			
+		//var chart_data = new Array();
+		
+		function chart_data(count){
+		var i;
+		for(i=0; i<4; i++){
+		var chart_data = [2,1,5]
+		alert(chart_data(count))
+		};
+	};
+			
 			function viewChart(title){
 				Ti.API.info(TITLE);
 				alert(TITLE);
@@ -99,7 +109,7 @@
 					series : [{
 						//青
 						name : '総合睡眠時間',
-						data : [7, 31, 35, 03, 2]
+						data : chart_data,
 					}]
 				});
 
