@@ -22,43 +22,31 @@
 	<body>
 		<script type="text/javascript">
 			
-			var test;
-		Ti.API.info('chart_test.html')
-			//var sleep_total_array = [6, 7.5, 8, 9];
-			//ベイシックバー
-			
-
-		//out.jsからの睡眠総合時間読み込み
-		//var sleep_time = require('../../../out');
-		//sleep_time.get_sleep_time();
-
-			var chart;
-				//var chart_data = new Array();
+		var chart;
+		//var chart_data = new Array();
 		var i;
+		
+		//TODO minute(out.js)をchart_dataに格納 以下だとチャートがまっしろ	
+	/*3.1  
+	 function get_min(){
+		var get_min = require("../../../LOG/out")
+		out.get_min();
+	};
+		*/
+		
+		
 		var chart_data = [2,1,5];
 		for(i=0; i<chart_data.length; i++){
-		alert(chart_data[i])
+		//alert(chart_data[i])
 		};
-
-
-			
-		//var chart_data = new Array();
 		
-		function chart_data(count){
-		var i;
-		for(i=0; i<4; i++){
-		var chart_data = [2,1,5]
-		alert(chart_data(count))
-		};
-	};
-			
+			//柳田さん
 			function viewChart(title){
 				Ti.API.info(TITLE);
 				alert(TITLE);
 				Ti.API.info(TITLE2);
 				alert(TITLE2);
 			};
-			
 			
 			$(document).ready(function() {
 				chart = new Highcharts.Chart({
@@ -117,10 +105,10 @@
 					series : [{
 						//青
 						name : '総合睡眠時間',
-						data : chart_data
+						//chart_data[1]はなんで0なんだろー
+						data : chart_data//get_min()
 					}]
 				});
-
 			});
 
 

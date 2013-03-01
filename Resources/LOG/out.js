@@ -19,12 +19,11 @@ var db = Ti.Database.open('db');//本番はtime_db
 var rows = db.execute('select rowid from date_test order by rowid desc limit 1');
 var target_rowid = rows.fieldByName('rowid');
 
-//Ti.API.info(target_rowid);
+//outボタンを押したらタイムスタンプ追加
 db.execute('update date_test set out_time=CURRENT_TIMESTAMP where rowid=?', target_rowid);
-
-
+//データ数
 var rows = db.execute('select rowid,* from date_test');
-//Ti.API.info('row count = '+rows.getRowCount());
+Ti.API.info('row count = '+rows.getRowCount());
 
 //id自体には何も入っておらず、rowidが連番になっていく
 while(rows.isValidRow()){
@@ -38,6 +37,8 @@ db.close();
 get_time();
 
 
+
+//TWITTER関係
 Ti.include("../lib/twitter_api.js");
 // 初回のみ認証処理
 // 再度認証したい時はアプリを削除 or Twitter 管理画面で許可を解除
@@ -83,11 +84,7 @@ tweet_button.addEventListener('click', function(){
 });
 
 
-// haman
-Ti.API.info('sleep_time.js');
-
 /* DBから必要なデータを取得 */
-//exports.get_sleep_time = function(){
 	var db = Ti.Database.open('db');
 	var rows = db.execute('select rowid,* from date_test');
 	while (rows.isValidRow()) {
@@ -137,10 +134,12 @@ Ti.API.info('sleep_time.js');
 		// throw new Error("exit()");
 		// 時間(:分)に変換する。
 		if (sleep_time_timestamp != null) {
+			//TODO hourの数字の割り出しがなんかおかしい。。
 			hour = Math.round(sleep_time_timestamp / 60 / 60 / 1000 /64+ 25569);
 			minute = Math.round(sleep_time_timestamp / 60 / 1000);
 			Ti.API.info('sleep_time_hour: ' + hour + '時間');
 			Ti.API.info('sleep_time_min: ' + minute + '分');
+			
 		} else {
 			Ti.API.info('sleep_time_hour: ' + '計算できない');
 		}
@@ -148,10 +147,20 @@ Ti.API.info('sleep_time.js');
 		// 次の要素に進む
 		rows.next();
 	};
-//};
-//get_sleep_time();
 
-//ツイート文選択・読み込み・表示
+
+//TODO minuteをchart_test.htmlにexports
+/*3.1
+ * 
+ exports.minute = function(){
+	Ti.API.info(minute)
+};
+*/
+
+
+
+
+//TODO ツイート文選択・読み込み・表示
 /*
  1,IN/OUTボタンを押した時にcurrent timeをget/insertされたDBの時間を持ってくる
  2,特定時間がpostすべき時間と重なったら

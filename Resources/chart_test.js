@@ -9,20 +9,27 @@ Ti.API.info("chart_test.js");
     	backgroundColor:'#ffffff'
 	});
 	
-	var html = ''
-	var webView = Ti.UI.createWebView({
+	
+	
+	
+	 html = ''
+	 webView = Ti.UI.createWebView({
 		url: '/etc/graph/highcharts/chart_test.html'//highcharts
-		// url で指定したファイルに変数をわたしたい hamada
+		// url で指定したファイルに変数をわたしたい
 		// param: total_sleep_array,
 		
 	});
-	
+		/*3.1
+		var get_min = require("../../../LOG/out")
+		out.get_min();
+		*/
+		
+	//以下柳田さま
 	webView.addEventListener('load',function(e)
 	{
-		var i;
-		for(i=0; i<4; i++){
-		};
-		webView.evalJS("chart_data(count = i)");
+		//out.jsのminuteがほしい
+		//3.1 webView.evalJS(get_min);
+		
 		//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
 	});
 	self.add(view);
