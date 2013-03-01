@@ -38,51 +38,6 @@ get_time();
 
 
 
-//TWITTER関係
-Ti.include("../lib/twitter_api.js");
-// 初回のみ認証処理
-// 再度認証したい時はアプリを削除 or Twitter 管理画面で許可を解除
-Ti.App.twitterApi = new TwitterApi({
-    consumerKey:'pyUVBLV3HgjUsn5k44lSzQ',
-    consumerSecret:'hjMU6MUg0vOj01d4wefwK7l2QImX3MxHtqUwlspouc'
-});
-var twitterApi = Ti.App.twitterApi;
-twitterApi.init();
-
-// ツイートする
-function tweet(){	
- twitterApi.statuses_update({
-    onSuccess: function(responce){
-   //     alert('テストだお！ひなだお！うそだお！');
-        Ti.API.info(responce);
-    },
-    onError: function(error) {
-        Ti.API.error(error);
-    },
-    // API 経由で直近 10 件の重複投稿はブロックされる。
-    parameters:{status: 'テストだお！'}
-});
-
-// Add item to window.
-self.open();
-};
-
-//ツイートボタン
-var tweet_button = Ti.UI.createButton({
-	title : 'ツイートする',
-	height : 20,
-	width : 100,
-	top : 200,
-	left : 50,
-	//backgroundImage:'tweet.png'
-});
-
-self.add(tweet_button);
-
-tweet_button.addEventListener('click', function(){
-	tweet()
-});
-
 
 /* DBから必要なデータを取得 */
 	var db = Ti.Database.open('db');
@@ -167,4 +122,56 @@ tweet_button.addEventListener('click', function(){
  3,IN/OUTページに表示
  4,ツイートさせる
  */
+
+
+
+
+//TWITTER関係
+Ti.include("../lib/twitter_api.js");
+// 初回のみ認証処理
+// 再度認証したい時はアプリを削除 or Twitter 管理画面で許可を解除
+Ti.App.twitterApi = new TwitterApi({
+    consumerKey:'pyUVBLV3HgjUsn5k44lSzQ',
+    consumerSecret:'hjMU6MUg0vOj01d4wefwK7l2QImX3MxHtqUwlspouc'
+});
+var twitterApi = Ti.App.twitterApi;
+twitterApi.init();
+
+// ツイートする
+function tweet(){	
+ twitterApi.statuses_update({
+    onSuccess: function(responce){
+        alert('ツイートが成功しました');
+        var toChart = Ti.UI.currentWindow({
+        	url:"toChart.js"
+        });
+        Ti.API.info(responce);
+    },
+    onError: function(error) {
+        Ti.API.error(error);
+        alert("ツイートが失敗しました");
+    },
+    // API 経由で直近 10 件の重複投稿はブロックされる。
+    parameters:{status: 'テストだお！'}
+});
+
+// Add item to window.
+self.open();
+};
+
+//ツイートボタン
+var tweet_button = Ti.UI.createButton({
+	title : 'ツイートする',
+	height : 20,
+	width : 100,
+	top : 200,
+	left : 50,
+	//backgroundImage:'tweet.png'
+});
+
+self.add(tweet_button);
+
+tweet_button.addEventListener('click', function(){
+	tweet()
+});
 
