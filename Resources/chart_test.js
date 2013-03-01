@@ -1,6 +1,5 @@
 //currentでhtmlを開くためのプリッジファイル
-//柳田さん
-
+//柳田神
 
 function Highcharts(nav) {
 Ti.API.info("chart_test.js");
@@ -10,8 +9,6 @@ Ti.API.info("chart_test.js");
 	});
 	
 	
-	
-	
 	 html = ''
 	 webView = Ti.UI.createWebView({
 		url: '/etc/graph/highcharts/chart_test.html'//highcharts
@@ -19,16 +16,25 @@ Ti.API.info("chart_test.js");
 		// param: total_sleep_array,
 		
 	});
-		/*3.1
+		/*3.1out.jsからget_min(minute)を読み込む
 		var get_min = require("../../../LOG/out")
 		out.get_min();
 		*/
+	
+	
+			
+			
+			
+			
+			
+			
 		
-	//以下柳田さま
+		
+	//以下柳田神
 	webView.addEventListener('load',function(e)
 	{
 		//out.jsのminuteがほしい
-		//3.1 webView.evalJS(get_min);
+	 webView.evalJS(get_min);
 		
 		//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
 	});

@@ -16,13 +16,13 @@ var db = Ti.Database.open('db');//本番はtime_db
 //rowidを取得
 // http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.Database.ResultSet
 //結果はresultsetオブジェクトとし返る
-var rows = db.execute('select rowid from date_test order by rowid desc limit 1');
+var rows = db.execute('select rowid from date_test1 order by rowid desc limit 1');
 var target_rowid = rows.fieldByName('rowid');
 
 //outボタンを押したらタイムスタンプ追加
-db.execute('update date_test set out_time=CURRENT_TIMESTAMP where rowid=?', target_rowid);
+db.execute('update date_test1 set out_time=CURRENT_TIMESTAMP where rowid=?', target_rowid);
 //データ数
-var rows = db.execute('select rowid,* from date_test');
+var rows = db.execute('select rowid,* from date_test1');
 Ti.API.info('row count = '+rows.getRowCount());
 
 //id自体には何も入っておらず、rowidが連番になっていく
@@ -41,7 +41,7 @@ get_time();
 
 /* DBから必要なデータを取得 */
 	var db = Ti.Database.open('db');
-	var rows = db.execute('select rowid,* from date_test');
+	var rows = db.execute('select rowid,* from date_test1');
 	while (rows.isValidRow()) {
 		// For Debug
 		Ti.API.info('＝＝＝id: ' + rows.fieldByName('rowid') + '＝＝＝＝＝＝＝');
@@ -66,7 +66,13 @@ get_time();
 		if (outArray == null) {
 			var out_time_timestamp = null;
 		} else {
-			var out_time_date = new Date((+outArray[1]), (+outArray[2]) - 1, (+outArray[3]), (+outArray[4]), (+outArray[5]), (+outArray[6]));
+			var out_time_date = new Date(
+		(+outArray[1]), //年
+	   	(+outArray[2]) - 1, //月 ←0がないから-1！
+		 (+outArray[3]),//日
+		 (+outArray[4]),//時
+		 (+outArray[5]),//分
+		 (+outArray[6]));//秒
 			var out_time_timestamp = out_time_date.getTime();
 		}
 
@@ -75,7 +81,7 @@ get_time();
 		// Ti.API.info('out_time_date: ' + out_time_timestamp);
 
 		// 睡眠時間を計算する
-		var sleep_time_timestamp = null;
+		 sleep_time_timestamp = null;
 		if (out_time_timestamp != null && in_time_timestamp != null) {
 			sleep_time_timestamp = out_time_timestamp - in_time_timestamp;
 			//Ti.API.info("in time :" + in_time_timestamp);
@@ -95,6 +101,26 @@ get_time();
 			Ti.API.info('sleep_time_hour: ' + hour + '時間');
 			Ti.API.info('sleep_time_min: ' + minute + '分');
 			
+			/*
+			 * 
+			 TODO 加工されたminuteをDBにupdate
+			*/
+			
+		var rows = db.execute('select rowid from date_test1 order by rowid desc limit 1');
+		var target_rowid = rows.fieldByName('rowid');
+
+		//睡眠時間(数字)をDBへ
+		db.execute('update date_test1 set sleep_time=INTEGER where rowid=?', target_rowid);
+		//データ数
+		var rows = db.execute('select rowid,* from date_test1');
+		//Ti.API.info('row count = ' + rows.getRowCount());
+
+		//id自体には何も入っておらず、rowidが連番になっていく
+		while (rows.isValidRow()) {
+			
+			Ti.API.info('id:'+rows.fieldByName('rowid')+' IN_TIME:'+ rows.fieldByName('in_time')+'　OUT_TIME:'+ rows.fieldByName('out_time')+' 睡眠時間:'+rows.fieldByName('sleep_time'))
+			rows.next();
+			}
 		} else {
 			Ti.API.info('sleep_time_hour: ' + '計算できない');
 		}
@@ -102,15 +128,6 @@ get_time();
 		// 次の要素に進む
 		rows.next();
 	};
-
-
-//TODO minuteをchart_test.htmlにexports
-/*3.1
- * 
- exports.minute = function(){
-	Ti.API.info(minute)
-};
-*/
 
 
 
@@ -142,14 +159,15 @@ function tweet(){
  twitterApi.statuses_update({
     onSuccess: function(responce){
         alert('ツイートが成功しました');
-        var toChart = Ti.UI.currentWindow({
+        //TODO 成功したらチャートへ移動（途中）
+        Ti.UI.createWindow({
         	url:"toChart.js"
         });
         Ti.API.info(responce);
     },
     onError: function(error) {
         Ti.API.error(error);
-        alert("ツイートが失敗しました");
+        alert("ツイートが失敗しました。どんまいです。");
     },
     // API 経由で直近 10 件の重複投稿はブロックされる。
     parameters:{status: 'テストだお！'}

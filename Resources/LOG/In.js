@@ -11,10 +11,10 @@ function get_time() {
 	//db.execute('create table if not exists date(id INTEGER,in_time DATETIME DEFAULT CURRENT_TIMESTAMP,out_time DATETIME DEFAULT CURRENT_TIMESTAMP)');
 	//db.execute('insert into date (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
 
-	db.execute('create table if not exists date_test(id INTEGER,in_time DATETIME DEFAULT CURRENT_TIMESTAMP,out_time DATETIME DEFAULT CURRENT_TIMESTAMP)');
-	db.execute('insert into date_test (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
+	db.execute('create table if not exists date_test1(id INTEGER,in_time DATETIME DEFAULT CURRENT_TIMESTAMP,out_time DATETIME DEFAULT CURRENT_TIMESTAMP,sleep_time INTEGER)');
+	db.execute('insert into date_test1 (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
 
-	var rows = db.execute('select rowid,* from date_test');
+	var rows = db.execute('select rowid,* from date_test1');
 	//Ti.API.info('row count = ' + rows.getRowCount());
 	Ti.API.info(rows);
 
