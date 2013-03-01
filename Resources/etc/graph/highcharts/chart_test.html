@@ -33,6 +33,14 @@
 		//sleep_time.get_sleep_time();
 
 			var chart;
+				//var chart_data = new Array();
+		var i;
+		var chart_data = [2,1,5];
+		for(i=0; i<chart_data.length; i++){
+		alert(chart_data[i])
+		};
+
+
 			
 			function viewChart(title){
 				Ti.API.info(TITLE);
@@ -99,7 +107,7 @@
 					series : [{
 						//青
 						name : '総合睡眠時間',
-						data : [7, 31, 35, 03, 2]
+						data : chart_date
 					}]
 				});
 

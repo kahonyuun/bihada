@@ -14,7 +14,7 @@ Ti.API.info("chart_test.js");
 	});
 	webView.addEventListener('load',function(e)
 	{
-		webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
+		//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
 	});
 	self.add(view);
 	view.add(webView);
