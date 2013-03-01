@@ -19,13 +19,10 @@ Ti.API.info("chart_test.js");
 	
 	webView.addEventListener('load',function(e)
 	{
-<<<<<<< HEAD
-=======
 		var i;
 		for(i=0; i<4; i++){
 		};
 		webView.evalJS("chart_data(count = i)");
->>>>>>> 7b6cb865ec2caff060607bcf963547cfde56bbcd
 		//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
 	});
 	self.add(view);
