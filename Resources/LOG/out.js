@@ -16,13 +16,13 @@ var db = Ti.Database.open('db');//本番はtime_db
 //rowidを取得
 // http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.Database.ResultSet
 //結果はresultsetオブジェクトとし返る
-var rows = db.execute('select rowid from date_test1 order by rowid desc limit 1');
+var rows = db.execute('select rowid from date_test order by rowid desc limit 1');
 var target_rowid = rows.fieldByName('rowid');
 
 //outボタンを押したらタイムスタンプ追加
-db.execute('update date_test1 set out_time=CURRENT_TIMESTAMP where rowid=?', target_rowid);
+db.execute('update date_test set out_time=datetime("now", "localtime") where rowid=?', target_rowid);
 //データ数
-var rows = db.execute('select rowid,* from date_test1');
+var rows = db.execute('select rowid, * from date_test');
 Ti.API.info('row count = '+rows.getRowCount());
 
 //id自体には何も入っておらず、rowidが連番になっていく
@@ -41,7 +41,7 @@ get_time();
 
 /* DBから必要なデータを取得 */
 	var db = Ti.Database.open('db');
-	var rows = db.execute('select rowid,* from date_test1');
+	var rows = db.execute('select rowid,* from date_test');
 	while (rows.isValidRow()) {
 		// For Debug
 		Ti.API.info('＝＝＝id: ' + rows.fieldByName('rowid') + '＝＝＝＝＝＝＝');
@@ -91,7 +91,7 @@ get_time();
 			Ti.API.info('sleep_time_timestamp: ' + '計算できない');
 		}
 
-		// db.close();
+		//db.close();
 		// throw new Error("exit()");
 		// 時間(:分)に変換する。
 		if (sleep_time_timestamp != null) {
@@ -106,13 +106,13 @@ get_time();
 			 TODO 加工されたminuteをDBにupdate
 			*/
 			
-		var rows = db.execute('select rowid from date_test1 order by rowid desc limit 1');
+		var rows = db.execute('select rowid from date_test order by rowid desc limit 1');
 		var target_rowid = rows.fieldByName('rowid');
 
 		//睡眠時間(数字)をDBへ
-		db.execute('update date_test1 set sleep_time=INTEGER where rowid=?', target_rowid);
+		db.execute('update date_test set sleep_time=? where rowid=?',minute, target_rowid);
 		//データ数
-		var rows = db.execute('select rowid,* from date_test1');
+		var rows = db.execute('select rowid,* from date_test');
 		//Ti.API.info('row count = ' + rows.getRowCount());
 
 		//id自体には何も入っておらず、rowidが連番になっていく

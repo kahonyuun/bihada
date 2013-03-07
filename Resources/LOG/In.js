@@ -8,13 +8,13 @@ self.height = 410;
 //DB
 function get_time() {
 	var db = Ti.Database.open('db');
-	//db.execute('create table if not exists date(id INTEGER,in_time DATETIME DEFAULT CURRENT_TIMESTAMP,out_time DATETIME DEFAULT CURRENT_TIMESTAMP)');
-	//db.execute('insert into date (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
+	//db.execute('create table if not exists date(id INTEGER,in_time DATETIME DEFAULT datetime("now", "localtime"),out_time DATETIME DEFAULT datetime("now", "localtime"))');
+	//db.execute('insert into date (in_time,out_time) values (?,datetime("now", "localtime"),null)');
+	db.execute("DROP TABLE IF EXISTS date_test1");
+	db.execute('create table if not exists date_test(in_time DATETIME,out_time DATETIME,sleep_time INTEGER)');
+	db.execute('insert into date_test (in_time,out_time) values (datetime("now", "localtime"),null)');
 
-	db.execute('create table if not exists date_test1(id INTEGER,in_time DATETIME DEFAULT CURRENT_TIMESTAMP,out_time DATETIME DEFAULT CURRENT_TIMESTAMP,sleep_time INTEGER)');
-	db.execute('insert into date_test1 (id,in_time,out_time) values (?,CURRENT_TIMESTAMP,null)');
-
-	var rows = db.execute('select rowid,* from date_test1');
+	var rows = db.execute('select rowid, * from date_test');
 	//Ti.API.info('row count = ' + rows.getRowCount());
 	Ti.API.info(rows);
 
@@ -22,6 +22,7 @@ function get_time() {
 		//Ti.API.info('id:' + rows.fieldByName('rowid') + ' IN_TIME:' + rows.fieldByName('in_time') + ' OUT_TIME:' + rows.fieldByName('out_time'))
 		rows.next();
 	}
+	
 	rows.closed
 	db.close();
 };
