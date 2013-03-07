@@ -25,11 +25,12 @@
 		
 		var chart;
 		//var chart_data = new Array();
-		var i;
+					var i;
 		
 		
+
 		
-		var chart_data = [2,1,5];
+		var chart_data = [1,2,7];
 		for(i=0; i<chart_data.length; i++){
 		//alert(chart_data[i])
 		};
@@ -38,7 +39,7 @@
 		//DBからminuteをselect⇒変数に格納⇒htmlファイルの配列に渡す cp from out.js
 	function get_min() {
 		var db = Ti.Database.open('db');
-		var rows = db.execute('select rowid from date_test1 order by rowid desc limit 1');
+		var rows = db.execute('select rowid from date_test order by rowid desc limit 1');
 		var target_rowid = rows.fieldByName('rowid');
 
 		//TODO :sleep_timeをselectして変数にいれる

@@ -21,20 +21,23 @@ Ti.API.info("chart_test.js");
 		out.get_min();
 		*/
 	
-	
-			
-			
-			
-			
-			
-			
+//チャートに表示するintの取得
+		/*var db = Ti.Database.open('db');
+		db.execute('select rowid, * from date_test');
+		while(rows.isValidRow()){
+		var id = rows.fieldByName('rowid');
+		//var test = [1,2,9];
 		
-		
+		rows.next();
+		}
+		rows.closed;
+		db.close();
+		*/
 	//以下柳田神
 	webView.addEventListener('load',function(e)
 	{
 		//out.jsのminuteがほしい
-	 webView.evalJS(get_min);
+	// webView.evalJS(get_min);
 		
 		//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
 	});

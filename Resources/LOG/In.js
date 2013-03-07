@@ -10,7 +10,7 @@ function get_time() {
 	var db = Ti.Database.open('db');
 	//db.execute('create table if not exists date(id INTEGER,in_time DATETIME DEFAULT datetime("now", "localtime"),out_time DATETIME DEFAULT datetime("now", "localtime"))');
 	//db.execute('insert into date (in_time,out_time) values (?,datetime("now", "localtime"),null)');
-	db.execute("DROP TABLE IF EXISTS date_test1");
+	//db.execute("DROP TABLE IF EXISTS date_test");
 	db.execute('create table if not exists date_test(in_time DATETIME,out_time DATETIME,sleep_time INTEGER)');
 	db.execute('insert into date_test (in_time,out_time) values (datetime("now", "localtime"),null)');
 

@@ -20,7 +20,9 @@ var rows = db.execute('select rowid from date_test order by rowid desc limit 1')
 var target_rowid = rows.fieldByName('rowid');
 
 //outボタンを押したらタイムスタンプ追加
-db.execute('update date_test set out_time=datetime("now", "localtime") where rowid=?', target_rowid);
+db.execute(
+	'update date_test set out_time=datetime("now", "localtime") where rowid=?', 
+	target_rowid);
 //データ数
 var rows = db.execute('select rowid, * from date_test');
 Ti.API.info('row count = '+rows.getRowCount());
@@ -53,12 +55,25 @@ get_time();
 		var in_time_string = rows.fieldByName('in_time');
 		var out_time_string = rows.fieldByName('out_time');
 
-		// timestamp型に変換、4桁の数字
+		// timestamp型に変換、4桁の数字 改変前
+		//gフラグがあると、前回マッチした次の部分から検索を開始する(連番になる)
 		reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
+		//メモ execメソッド：マッチ成功⇒配列を返す、失敗⇒null
 		dateArray = reggie.exec(in_time_string);
-		var in_time_date = new Date((+dateArray[1]), (+dateArray[2]) - 1, // Careful, month starts at 0!
-		(+dateArray[3]), (+dateArray[4]), (+dateArray[5]), (+dateArray[6]));
+		var in_time_date = new Date(
+		 (+dateArray[1]),//年
+		 (+dateArray[2]) - 1, // Careful, month starts at 0!
+		 (+dateArray[3]),//日
+		 (+dateArray[4]), //時
+		 (+dateArray[5]), //分
+		 (+dateArray[6]));//秒
 		var in_time_timestamp = in_time_date.getTime();
+
+
+//TODO タイムスタンプ分解?日月と時間をわける
+		
+
+
 
 		// TODO: out_time も同様に処理する
 		reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
@@ -118,7 +133,10 @@ get_time();
 		//id自体には何も入っておらず、rowidが連番になっていく
 		while (rows.isValidRow()) {
 			
-			Ti.API.info('id:'+rows.fieldByName('rowid')+' IN_TIME:'+ rows.fieldByName('in_time')+'　OUT_TIME:'+ rows.fieldByName('out_time')+' 睡眠時間:'+rows.fieldByName('sleep_time'))
+			Ti.API.info('id:'+rows.fieldByName('rowid')+
+			' IN_TIME:'+ rows.fieldByName('in_time')+
+			'　OUT_TIME:'+ rows.fieldByName('out_time')+
+			' 睡眠時間:'+rows.fieldByName('sleep_time'))
 			rows.next();
 			}
 		} else {
