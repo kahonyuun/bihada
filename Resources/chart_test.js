@@ -39,13 +39,12 @@ function Highcharts(nav) {
 	webView.addEventListener('load', function(e) {
 		var test = [1, 2, 9];
 		//Ti.API.info(test);//はかない
-		Ti.API.info(test[0]);
-		Ti.API.info(test[1]);
-		Ti.API.info(test[2]);
-		//out.jsのminuteがほしい
-		webView.evalJS("chart( ID = test )");
-
-		//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
+		//Ti.API.info(test[0]);
+		//Ti.API.info(test[1]);
+		//Jsonにして数字を渡す
+		webView.evalJS("chart( ID = " + JSON.stringify(test) + " )");
+//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
+		
 	});
 	self.add(view);
 	view.add(webView);

@@ -38,10 +38,12 @@ var tableView = null;
 //--------------------------------------
 // 関数宣言部
 //--------------------------------------
-function reload_timeline(){
+/*function reload_timeline(){
     // 検索結果をTableViewのRowとして格納します。
     //TODO:cant find variable twitter "twilib"読み込めてない
-    twitter.search(Ti.Network.encodeURIComponent('#subwayjp -RT'), 25, 1, function(json){
+    twitter.search(Ti.Network.encodeURIComponent('#subwayjp -RT'), 25, 1, 
+    
+    function(json){
         // 表示データを格納する配列
         var rows = [];
         for(var i = 0; i < json.results.length; i++){
@@ -104,9 +106,9 @@ function reload_timeline(){
             });
             Titanium.UI.currentWindow.add(tableView);
         }
-    });
+    });//twitter.serch終了
 };
-
+*/
 //--------------------------------------
 // イベントハンドラ定義部
 //--------------------------------------

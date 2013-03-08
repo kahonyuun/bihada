@@ -22,21 +22,24 @@
 	<body>
 		<script type="text/javascript">
 
+		// chart_test.js
 			function chart() {
+				Ti.API.info('chart start');
+				//JSONになってる
+				Ti.API.info('ID: ' +ID)//はいた！TODO:あとでブログまとめる！
 				Ti.API.info(test[0]);//はかない
 				//Ti.API.info(ID);//はかない
-				var chart_data = ID;
 			};
-		//けす
+		//TODO:chart_dataにtest
+		var chart_data = [1,2,9];			
 		var chart;
 		var i;			
-		//var chart_data = [1,2,7,2,3,5,4,3,5,3,4,4,3,4,5,4,3,2];
+
 		for(i=0; i<chart_data.length; i++){
 		//alert(chart_data[i])
 		};
 		
 		//睡眠時間
-		//DBからminuteをselect⇒変数に格納⇒htmlファイルの配列に渡す cp from out.js
 	/*たぶんつかわない
 	function get_min() {
 		var db = Ti.Database.open('db');
