@@ -74,26 +74,5 @@ var tweet_button = Ti.UI.createButton({
 self.add(tweet_button);
 
 tweet_button.addEventListener('click', function() {
-	 // tweet入力画面の表示
-    //（認証情報の登録がされていることが前提）
-/*    var username = Titanium.App.Properties.getString("tw_username");
-    var password = Titanium.App.Properties.getString("tw_password");
-    if(username == null || username == '' ||
-       password == null || password == ''){
-        Titanium.UI.createAlertDialog({
-            title  : '認証情報未登録',
-            message: '設定画面でTwitterのIDとパスワードを設定してください。'
-        }).show();
-        Titanium.UI.currentWindow.tabGroup.setActiveTab(4);
-        return;
-    }
-	*/
 	tweet()
 });
-
-// デバイスシェイク時イベント(いらなかったかも・・・)
-Titanium.Gesture.addEventListener('shake', function(){
-    // シェイクするとツイート
-    tweet();
-}, false);
-
