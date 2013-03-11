@@ -37,7 +37,7 @@ function Highcharts(nav) {
 
 	//以下柳田神
 	webView.addEventListener('load', function(e) {
-		var test = [1, 2, 9];
+		var test = [1, 2, 9,0,2,1];
 		//Ti.API.info(test);//はかない
 		Ti.API.info(test[0]);
 		Ti.API.info(test[1]);
