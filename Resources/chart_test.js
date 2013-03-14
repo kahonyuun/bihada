@@ -15,11 +15,7 @@ function Highcharts(nav) {
 		// param: total_sleep_array,
 
 	});
-	/*3.1out.jsからget_min(minute)を読み込む
-	var get_min = require("../../../LOG/out")
-	out.get_min();
-	*/
-
+	
 	//チャートに表示する時間の取得
 	var db = Ti.Database.open('db');
 	var rows = db.execute('select rowid, * from date_test');

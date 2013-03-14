@@ -22,17 +22,20 @@
 	<body>
 		<script type="text/javascript">
 			// chart_test.js
-			//chart_data = '';これつけたらfunction読み込まないTODO ブログ
+			//chart_hour = '';これつけたらfunction読み込まないTODO ブログ
 			function chart() {
 				var i;
 
 				Ti.API.info('chart start');
 				Ti.API.info("睡眠時間:" + ID+"分");
+				Ti.API.info('睡眠日時:' + DATE);
 				//Ti.API.info(test[0]);//はかない
 				//Ti.API.info(ID);//はかない
-				var chart_data = ID;
-				for ( i = 0; i < chart_data.length; i++) {
-					//alert(chart_data[i])
+				
+				//
+				var chart_hour = ID;
+				for ( i = 0; i < chart_hour.length; i++) {
+					//alert(chart_hour[i])
 				};
 
 				function display_chart() {
@@ -48,7 +51,7 @@
 							text : 'にゃんにゃん'
 						},
 						xAxis : {
-							categories : ['2/1', '2/2'], //
+							categories : DATE , //
 							title : {
 								text : null
 							}
@@ -92,8 +95,8 @@
 						series : [{
 							//青
 							name : '総合睡眠時間',
-							//chart_data[1]はなんで0なんだろー
-							data : chart_data//get_min()
+							//chart_hour[1]はなんで0なんだろー
+							data : chart_hour//get_min()
 						}]
 					});
 				};
@@ -192,8 +195,8 @@
 			 series : [{
 			 //青
 			 name : '総合睡眠時間',
-			 //chart_data[1]はなんで0なんだろー
-			 data : chart_data//get_min()
+			 //chart_hour[1]はなんで0なんだろー
+			 data : chart_hour//get_min()
 			 }]
 			 });
 			 });

@@ -51,29 +51,35 @@ while (rows.isValidRow()) {
 	//メモ execメソッド：マッチ成功⇒配列を返す、失敗⇒null
 	dateArray = in_reg.exec(in_time_string);
 	Ti.API.info("正規表現" + dateArray);
+	
 	//正規表現2013-03-14 10:12:13,2013,03,14,10,12,13
-	var in_time_date = new Date((+dateArray[1]), //年
+	var in_time_date = new Date(
+	(+dateArray[1]), //年
 	(+dateArray[2]) - 1, // Careful, month starts at 0!
 	(+dateArray[3]), //日
 	(+dateArray[4]), //時
 	(+dateArray[5]), //分
-	(+dateArray[6]));
-	//秒
+	(+dateArray[6]));//秒
+	
 	var in_time_timestamp = in_time_date.getTime();
-	//TODO タイムスタンプ分解?日月と時間をわける
-	// TODO: out_time も同様に処理する
+	//チャートに入れるため月日の分割
+	var days_reg = dateArray[2] +"/"+ dateArray[3];
+	Ti.API.info(days_reg);
+	
+	// out_time
 	out_reg = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
 	outArray = out_reg.exec(out_time_string);
 	if (outArray == null) {
 		var out_time_timestamp = null;
 	} else {
-		var out_time_date = new Date((+outArray[1]), //年
+		var out_time_date = new Date(
+		(+outArray[1]), //年
 		(+outArray[2]) - 1, //月 ←0がないから-1！
 		(+outArray[3]), //日
 		(+outArray[4]), //時
 		(+outArray[5]), //分
-		(+outArray[6]));
-		//秒
+		(+outArray[6]));//秒
+		
 		var out_time_timestamp = out_time_date.getTime();
 	}
 	// For Debug
@@ -96,9 +102,9 @@ while (rows.isValidRow()) {
 		//TODO hourの数字の割り出しがなんかおかしい。。
 		hour = Math.round(sleep_time_timestamp / 60 / 60 / 1000);
 		minute = Math.round(sleep_time_timestamp / 60 / 1000);
-		Ti.API.info(sleep_time_timestamp);
-		Ti.API.info('sleep_time_hour: ' + hour + '時間');
-		Ti.API.info('sleep_time_min: ' + minute + '分');
+		//Ti.API.info(sleep_time_timestamp);
+		//Ti.API.info('sleep_time_hour: ' + hour + '時間');
+		//Ti.API.info('sleep_time_min: ' + minute + '分');
 
 		var limited_rows = db.execute('select rowid from date_test order by rowid desc limit 1');
 		var target_rowid = limited_rows.fieldByName('rowid');
