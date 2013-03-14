@@ -3,13 +3,11 @@ twi.tweet();
 */
 //self.top = 0;
 //self.height = 410;
-
 //Ti.API.info('OUT')
 win = Ti.UI.createWindow;
 self = Ti.UI.currentWindow;
 self.top = 0;
 self.height = 410;
-
 //DB
 function update_outTime() {
 	var db = Ti.Database.open('db');
@@ -19,13 +17,11 @@ function update_outTime() {
 	//結果はresultsetオブジェクトとし返る
 	var rows = db.execute('select rowid from date_test order by rowid desc limit 1');
 	var target_rowid = rows.fieldByName('rowid');
-
 	//outボタンを押したらタイムスタンプ追加
 	db.execute('update date_test set out_time=datetime("now", "localtime") where rowid=?', target_rowid);
 	//データ数
 	var rows = db.execute('select rowid, * from date_test');
 	Ti.API.info('row count = ' + rows.getRowCount());
-
 	//id自体には何も入っておらず、rowidが連番になっていく
 	while (rows.isValidRow()) {
 		//	Ti.API.info('id:'+rows.fieldByName('rowid')+' IN_TIME:'+ rows.fieldByName('in_time')+'　OUT_TIME:'+ rows.fieldByName('out_time'))
@@ -36,7 +32,6 @@ function update_outTime() {
 	//db.remove();
 };
 update_outTime();
-
 /* DBから必要なデータを取得 */
 var db = Ti.Database.open('db');
 var rows = db.execute('select rowid,* from date_test');
@@ -46,16 +41,17 @@ while (rows.isValidRow()) {
 	Ti.API.info('IN_TIME: ' + rows.fieldByName('in_time'));
 	//2013-02-21 05:58:26みたいな感じ
 	Ti.API.info('OUT_TIME: ' + rows.fieldByName('out_time'));
-
 	// 変数に入れる
 	var in_time_string = rows.fieldByName('in_time');
 	var out_time_string = rows.fieldByName('out_time');
-
 	// timestamp型に変換
 	//gフラグがあると、前回マッチした次の部分から検索を開始する(連番になる)
-	reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
+	in_reg = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
+
 	//メモ execメソッド：マッチ成功⇒配列を返す、失敗⇒null
-	dateArray = reggie.exec(in_time_string);
+	dateArray = in_reg.exec(in_time_string);
+	Ti.API.info("正規表現" + dateArray);
+	//正規表現2013-03-14 10:12:13,2013,03,14,10,12,13
 	var in_time_date = new Date((+dateArray[1]), //年
 	(+dateArray[2]) - 1, // Careful, month starts at 0!
 	(+dateArray[3]), //日
@@ -65,10 +61,9 @@ while (rows.isValidRow()) {
 	//秒
 	var in_time_timestamp = in_time_date.getTime();
 	//TODO タイムスタンプ分解?日月と時間をわける
-
-
 	// TODO: out_time も同様に処理する
-	outArray = reggie.exec(out_time_string);
+	out_reg = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
+	outArray = out_reg.exec(out_time_string);
 	if (outArray == null) {
 		var out_time_timestamp = null;
 	} else {
@@ -77,14 +72,13 @@ while (rows.isValidRow()) {
 		(+outArray[3]), //日
 		(+outArray[4]), //時
 		(+outArray[5]), //分
-		(+outArray[6]));//秒
+		(+outArray[6]));
+		//秒
 		var out_time_timestamp = out_time_date.getTime();
 	}
-
 	// For Debug
 	// Ti.API.info('in_time_date: ' + in_time_timestamp);
 	// Ti.API.info('out_time_date: ' + out_time_timestamp);
-
 	// 睡眠時間を計算する
 	sleep_time_timestamp = null;
 	if (out_time_timestamp != null && in_time_timestamp != null) {
@@ -95,7 +89,6 @@ while (rows.isValidRow()) {
 	} else {
 		Ti.API.info('sleep_time_timestamp: ' + '計算できない');
 	}
-
 	//db.close();
 	// throw new Error("exit()");
 	// 時間(:分)に変換する。
@@ -107,19 +100,26 @@ while (rows.isValidRow()) {
 		Ti.API.info('sleep_time_hour: ' + hour + '時間');
 		Ti.API.info('sleep_time_min: ' + minute + '分');
 
-		
 		var limited_rows = db.execute('select rowid from date_test order by rowid desc limit 1');
 		var target_rowid = limited_rows.fieldByName('rowid');
-
 		//睡眠時間(数字)をDBへ
 		db.execute('update date_test set sleep_time=? where rowid=?', minute, target_rowid);
+		// //データ数
+		// var rows = db.execute('select rowid,* from date_test');
+		// //Ti.API.info('row count = ' + rows.getRowCount());
+		//
+		// //id自体には何も入っておらず、rowidが連番になっていく
+		// while (rows.isValidRow()) {
+		//
+		// Ti.API.info('id:' + rows.fieldByName('rowid') + ' IN_TIME:' + rows.fieldByName('in_time') + '　OUT_TIME:' + rows.fieldByName('out_time') + ' 睡眠時間:' + rows.fieldByName('sleep_time'))
+		// rows.next();
+		// }
 	} else {
 		Ti.API.info('sleep_time_hour: ' + '計算できない');
 	}
 	// 次の要素に進む
 	rows.next();
 };
-
 //TODO ツイート文選択・読み込み・表示
 /*
 1,IN/OUTボタンを押した時にcurrent timeをget/insertされたDBの時間を持ってくる
@@ -127,7 +127,6 @@ while (rows.isValidRow()) {
 3,IN/OUTページに表示
 4,ツイートさせる
 */
-
 //TWITTER関係
 Ti.include("../lib/twitter_api.js");
 // 初回のみ認証処理
@@ -138,7 +137,6 @@ Ti.App.twitterApi = new TwitterApi({
 });
 var twitterApi = Ti.App.twitterApi;
 twitterApi.init();
-
 // ツイートする
 function tweet() {
 	twitterApi.statuses_update({
@@ -159,11 +157,9 @@ function tweet() {
 			status : 'テストだお！'
 		}
 	});
-
 	// Add item to window.
 	self.open();
 };
-
 //ツイートボタン
 var tweet_button = Ti.UI.createButton({
 	title : 'ツイートする',
@@ -173,10 +169,7 @@ var tweet_button = Ti.UI.createButton({
 	left : 50,
 	//backgroundImage:'tweet.png'
 });
-
 self.add(tweet_button);
-
 tweet_button.addEventListener('click', function() {
 	tweet()
-});
-
+}); 
