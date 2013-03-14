@@ -20,26 +20,29 @@ function Highcharts(nav) {
 	out.get_min();
 	*/
 
-	//チャートに表示するintの取得
+	//チャートに表示する時間の取得
 	var db = Ti.Database.open('db');
 	var rows = db.execute('select rowid, * from date_test');
 
-
+var chart_contain = [];
 	while (rows.isValidRow()) {
-		var id = rows.fieldByName('rowid');
+		var rowid =rows.fieldByName('rowid');
+		var sleep_time = rows.fieldByName('sleep_time');
+		chart_contain[rowid] = sleep_time;
 		
-
+//Ti.API.info("睡眠時間"+rows.fieldByName('sleep_time'));
+//Ti.API.info(rows.fieldByName('rowid'));
 		rows.next();
-	
+
 	}
 	rows.closed
 	db.close();
 
 	//以下柳田神
 	webView.addEventListener('load', function(e) {
-		var test = [1, 2, 9,0,2,1];
-		//Ti.API.info(test);//はかない
-		Ti.API.info(test[0]);
+		var test = chart_contain;
+		Ti.API.info(test);//はい
+		//Ti.API.info(test[0]);
 		Ti.API.info(test[1]);
 		Ti.API.info(test[2]);
 		//out.jsのminuteがほしい
@@ -51,5 +54,5 @@ function Highcharts(nav) {
 	self.add(view);
 	view.add(webView);
 	return view;
-	};
-	module.exports = Highcharts; 
+};
+module.exports = Highcharts;
