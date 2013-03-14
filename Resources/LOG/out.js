@@ -36,6 +36,7 @@ update_outTime();
 var db = Ti.Database.open('db');
 var rows = db.execute('select rowid,* from date_test');
 while (rows.isValidRow()) {
+	
 	// For Debug
 	Ti.API.info('＝＝＝id: ' + rows.fieldByName('rowid') + '＝＝＝＝＝＝＝');
 	Ti.API.info('IN_TIME: ' + rows.fieldByName('in_time'));
@@ -50,7 +51,7 @@ while (rows.isValidRow()) {
 
 	//メモ execメソッド：マッチ成功⇒配列を返す、失敗⇒null
 	dateArray = in_reg.exec(in_time_string);
-	Ti.API.info("正規表現" + dateArray);
+	//Ti.API.info("正規表現" + dateArray);
 	
 	//正規表現2013-03-14 10:12:13,2013,03,14,10,12,13
 	var in_time_date = new Date(
@@ -62,9 +63,6 @@ while (rows.isValidRow()) {
 	(+dateArray[6]));//秒
 	
 	var in_time_timestamp = in_time_date.getTime();
-	//チャートに入れるため月日の分割
-	var days_reg = dateArray[2] +"/"+ dateArray[3];
-	Ti.API.info(days_reg);
 	
 	// out_time
 	out_reg = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
@@ -85,6 +83,7 @@ while (rows.isValidRow()) {
 	// For Debug
 	// Ti.API.info('in_time_date: ' + in_time_timestamp);
 	// Ti.API.info('out_time_date: ' + out_time_timestamp);
+	
 	// 睡眠時間を計算する
 	sleep_time_timestamp = null;
 	if (out_time_timestamp != null && in_time_timestamp != null) {
@@ -95,8 +94,7 @@ while (rows.isValidRow()) {
 	} else {
 		Ti.API.info('sleep_time_timestamp: ' + '計算できない');
 	}
-	//db.close();
-	// throw new Error("exit()");
+	
 	// 時間(:分)に変換する。
 	if (sleep_time_timestamp != null) {
 		//TODO hourの数字の割り出しがなんかおかしい。。

@@ -2,7 +2,7 @@
 //柳田神
 
 function Highcharts(nav) {
-	Ti.API.info("chart_test.js");
+	//Ti.API.info("chart_test.js");
 	var self = Ti.UI.currentWindow
 	var view = Ti.UI.createView({
 		backgroundColor : '#ffffff'
@@ -15,13 +15,14 @@ function Highcharts(nav) {
 		// param: total_sleep_array,
 	});
 
-	//チャートに表示する時間をDBから取得
+	//チャートに表示する時間の取得
 	var db = Ti.Database.open('db');
 	var rows = db.execute('select rowid, * from date_test');
 
 	var chart_contain = [];
 	while (rows.isValidRow()) {
 		var rowid = rows.fieldByName('rowid');
+		//DBから睡眠時間とってきて格納⇒②
 		var sleep_time = rows.fieldByName('sleep_time');
 		chart_contain[rowid] = sleep_time;
 
@@ -32,19 +33,35 @@ function Highcharts(nav) {
 	rows.closed
 	db.close();
 
-	//睡眠時間をto chart_test.htmlへ配達
+	//TODO in_timeを月日に分割する
+	//TODO 早急にリファクタリング
+	// var db = Ti.Database.open('db');
+	// var rows = db.execute('select rowid, * from date_test');
+// 
+	// var contain_days = [];
+	// while (rows.isValidRow()) {
+		// var rowid = rows.fieldByName('rowid');
+		// var in_time = rows.fieldByName('in_time');
+		//Ti.API.info("in_time" + in_time);
+		//contain_days[rowid] = in_time;
+// 
+		// rows.next();
+	// }
+	// rows.closed
+	// db.close();
+
+	//②睡眠時間to chart_test.htmlへ配達
 	webView.addEventListener('load', function(e) {
-		var days = contain_days;
 		var hours = chart_contain;
 
-		Ti.API.info(hours);
-		Ti.API.info(days);
-		//はい
+	
+		//Ti.API.info(hours);
 		//Ti.API.info(hours[0]);
 		//Ti.API.info(hours[1]);
 
-		//webView.evalJS("chart( HOUR = " + hours + ")");
+		//webView.evalJS("chart( HOUR = " + hours + ")");//でないTODO ブログ
 		webView.evalJS("chart( HOUR = " + JSON.stringify(hours) + " )");
+		//webView.evalJS("chart( DAY = " + JSON.stringify(in_time) + ")");
 
 		//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
 	});

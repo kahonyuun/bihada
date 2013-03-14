@@ -28,17 +28,21 @@
 
 				Ti.API.info('chart start');
 				Ti.API.info("睡眠時間:" + HOUR + "分");
-				Ti.API.info('睡眠日時:' + DAY);
+				//Ti.API.info('日時:' + DAY);
 				//Ti.API.info(hours[0]);//はかない
 				//Ti.API.info(HOUR);//はかない
+				
+				//日時取得 from chart_test.js
+				var chart_days = ["2/2","3/3"];//DAY;
 
-				//
+
+				//時間取得 from chart_test.js
 				var chart_hour = HOUR;
 				for ( i = 0; i < chart_hour.length; i++) {
-					//alert(chart_hour[i])
-				};
-
+					//alert(chart_hour[i])	
+				}
 				function display_chart() {
+				
 					chart = new Highcharts.Chart({
 						chart : {
 							renderTo : 'container',
@@ -51,7 +55,7 @@
 							text : 'にゃんにゃん'
 						},
 						xAxis : {
-							categories : chart_day, //[2/1,2/2]
+							categories : chart_days,
 							title : {
 								text : null
 							}
