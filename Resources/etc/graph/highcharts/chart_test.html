@@ -27,13 +27,13 @@
 				var i;
 
 				Ti.API.info('chart start');
-				Ti.API.info("睡眠時間:" + ID+"分");
-				Ti.API.info('睡眠日時:' + DATE);
-				//Ti.API.info(test[0]);//はかない
-				//Ti.API.info(ID);//はかない
-				
+				Ti.API.info("睡眠時間:" + HOUR + "分");
+				Ti.API.info('睡眠日時:' + DAY);
+				//Ti.API.info(hours[0]);//はかない
+				//Ti.API.info(HOUR);//はかない
+
 				//
-				var chart_hour = ID;
+				var chart_hour = HOUR;
 				for ( i = 0; i < chart_hour.length; i++) {
 					//alert(chart_hour[i])
 				};
@@ -51,7 +51,7 @@
 							text : 'にゃんにゃん'
 						},
 						xAxis : {
-							categories : DATE , //
+							categories : chart_day, //[2/1,2/2]
 							title : {
 								text : null
 							}
@@ -101,106 +101,15 @@
 					});
 				};
 				display_chart();
-
 			};
 
-			//睡眠時間
-			//DBからminuteをselect⇒変数に格納⇒htmlファイルの配列に渡す cp from out.js
-			/*たぶんつかわない
-			function get_min() {
-			var db = Ti.Database.open('db');
-			var rows = db.execute('select rowid from date_test order by rowid desc limit 1');
-			var target_rowid = rows.fieldByName('rowid');
-
-			//TODO :sleep_timeをselectして変数にいれる
-			var sleep = db.execute('select sleep_time,* from date_test1');
-			//Ti.API.info('row count = ' + rows.getRowCount());
-			Ti.API.info('睡眠時間 : ' + sleep);
-
-			//id自体には何も入っておらず、rowidが連番になっていく
-			while (rows.isValidRow()) {
-
-			Ti.API.info('id:'+rows.fieldByName('rowid')+' IN_TIME:'+ rows.fieldByName('in_time')+'　OUT_TIME:'+ rows.fieldByName('out_time')+' 睡眠時間:'+rows.fieldByName('sleep_time'))
-			rows.next();
-			}
-			rows.closed
-			db.close();
-			//db.remove();
-			};
-			*/
-
-			//柳田神
+			//柳田様
 			function viewChart(title) {
 				Ti.API.info(TITLE);
 				alert(TITLE);
 				Ti.API.info(TITLE2);
 				alert(TITLE2);
 			};
-
-			//functionまとめる前
-			/*$(document).ready(function display_chart() {
-			 chart = new Highcharts.Chart({
-			 chart : {
-			 renderTo : 'container',
-			 defaultSeriesType : 'bar'
-			 },
-			 title : {
-			 text : '睡眠時間チャート'
-			 },
-			 subtitle : {
-			 text : 'にゃんにゃん'
-			 },
-			 xAxis : {
-			 categories : ['2/1', '2/2'], //
-			 title : {
-			 text : null
-			 }
-			 },
-			 yAxis : {
-			 min : 0,
-			 title : {
-			 text : '時間(Hour)',
-			 align : 'high'
-			 }
-			 },
-			 //マウスカーソルを当てた時にデータ表示
-			 tooltip : {
-			 formatter : function() {
-			 return '' + this.series.name + ': ' + this.y + ' millions';
-			 }
-			 },
-			 //グラフエリアの表示のオプション
-			 plotOptions : {
-			 bar : {
-			 dataLabels : {
-			 enabled : true
-			 }
-			 }
-			 },
-			 //凡例を表示させたい場合に指定
-			 legend : {
-			 layout : 'vertical',
-			 align : 'right',
-			 verticalAlign : 'top',
-			 x : -100,
-			 y : 100,
-			 floating : true,
-			 borderWidth : 1,
-			 backgroundColor : '#FFFFFF',
-			 shadow : true
-			 },
-			 credits : {
-			 enabled : false
-			 },
-			 series : [{
-			 //青
-			 name : '総合睡眠時間',
-			 //chart_hour[1]はなんで0なんだろー
-			 data : chart_hour//get_min()
-			 }]
-			 });
-			 });
-			 */
 
 		</script>
 		<div id="container" style="width: 300px; height: 200px; margin: 0 auto"></div>
