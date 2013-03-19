@@ -12,10 +12,10 @@
 			 */
 			#chart-drag-handle {
 				position: absolute;
-				height: 100%;
+				height: 300;
 				width: 100%;
 				top: 0;
-				z-index: 10;
+				z-index: 100;
 			}
 		</style>
 	</head>
@@ -33,7 +33,7 @@
 				//Ti.API.info(HOUR);//はかない
 				
 				//日時取得 from chart_test.js
-				var chart_days = ["2/2","3/3"];//DAY;
+				var chart_days = DAY;
 
 
 				//時間取得 from chart_test.js
@@ -46,7 +46,10 @@
 					chart = new Highcharts.Chart({
 						chart : {
 							renderTo : 'container',
-							defaultSeriesType : 'bar'
+							defaultSeriesType : 'bar',
+							marginRight: 50,
+                            marginBottom: 20,
+                            marginLeft: 50,
 						},
 						title : {
 							text : '睡眠時間チャート'

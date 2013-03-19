@@ -69,6 +69,7 @@ function Highcharts(nav) {
 	//②睡眠時間to chart_test.htmlへ配達
 	webView.addEventListener('load', function(e) {
 		var hours = chart_contain;
+		var days = contain_days;
 
 		//Ti.API.info(hours);
 		//Ti.API.info(hours[0]);
@@ -76,7 +77,7 @@ function Highcharts(nav) {
 
 		//webView.evalJS("chart( HOUR = " + hours + ")");//でないTODO ブログ
 		webView.evalJS("chart( HOUR = " + JSON.stringify(hours) + " )");
-		webView.evalJS("chart( DAY = " + JSON.stringify(sleep_days) + ")");
+		webView.evalJS("chart( DAY = " + JSON.stringify(days) + ")");
 
 		//webView.evalJS("viewChart(TITLE = '睡眠時間',TITLE2 = '睡眠時間2')");
 	});
