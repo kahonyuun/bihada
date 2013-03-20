@@ -80,11 +80,14 @@ var timer = Ti.UI.createLabel({
 setInterval(function(){
 	var d = new Date();
 	var t = {};
-	t.hour = ("0" + d.getHours() ).slice(-2);
+	//0はd.get~を文字列にするためにある。sliceは文字列にしかきかない
+	t.hour = ("0" + d.getHours() ).slice(-2);//後ろから二文字とる
 	t.minute = ("0" + d.getMinutes() ).slice(-2);
 	t.second = ("0" + d.getSeconds() ).slice(-2);
 	timer.text = t.hour + ":" + t.minute + ":" + t.second;
+	//Ti.API.info("hour:" + t.hour);
 },100 );	
+
 view1.add(timer);
 
 //TODO:in_timeの12h(43200秒)後に起きた？alert 

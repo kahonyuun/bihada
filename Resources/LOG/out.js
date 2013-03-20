@@ -1,14 +1,25 @@
 /*var twi = require('twi');
 twi.tweet();
 */
-//self.top = 0;
-//self.height = 410;
-//Ti.API.info('OUT')
 win = Ti.UI.createWindow;
 self = Ti.UI.currentWindow;
 self.top = 0;
 self.height = 410;
-//DB
+
+//現在時刻判定
+/*function judge_time(){
+	var db = Ti.Database.open('db');
+	var time = new Date();
+	var t = {};
+	h.hour = ("0" + d.getHours() ).slice(-2);
+	h.minute = ("0" + d.getMinutes() ).slice(-2);
+	
+	if((h.hour > 12 ))
+
+}
+*/
+
+//布団OUTタイムを挿入
 function update_outTime() {
 	var db = Ti.Database.open('db');
 	//本番はtime_db
@@ -21,6 +32,8 @@ function update_outTime() {
 	db.execute('update date_test set out_time=datetime("now", "localtime") where rowid=?', target_rowid);
 	//データ数
 	var rows = db.execute('select rowid, * from date_test');
+	
+	
 	Ti.API.info('row count = ' + rows.getRowCount());
 	//id自体には何も入っておらず、rowidが連番になっていく
 	while (rows.isValidRow()) {
@@ -102,7 +115,7 @@ while (rows.isValidRow()) {
 		minute = Math.round(sleep_time_timestamp / 60 / 1000);
 		//Ti.API.info(sleep_time_timestamp);
 		//Ti.API.info('sleep_time_hour: ' + hour + '時間');
-		//Ti.API.info('sleep_time_min: ' + minute + '分');
+		Ti.API.info('sleep_time_min: ' + minute + '分');
 
 		var limited_rows = db.execute('select rowid from date_test order by rowid desc limit 1');
 		var target_rowid = limited_rows.fieldByName('rowid');
