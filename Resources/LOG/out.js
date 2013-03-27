@@ -125,14 +125,16 @@ Ti.API.info("にゅーめりっく"+in_time_timestamp);
 	// 次の要素に進む
 	rows.next();
 };
-//TODO ツイート文選択・読み込み・表示
-/*
-1,IN/OUTボタンを押した時にcurrent timeをget/insertされたDBの時間を持ってくる
-2,特定時間がpostすべき時間と重なったら
-3,IN/OUTページに表示
-4,ツイートさせる
-*/
-//TWITTER関係
+
+//TODO GTタイムの算出
+
+
+
+
+
+
+
+//TODO ツイート文選択・読み込み・表示//TWITTER関係
 Ti.include("../lib/twitter_api.js");
 // 初回のみ認証処理
 // 再度認証したい時はアプリを削除 or Twitter 管理画面で許可を解除

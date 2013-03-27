@@ -9,19 +9,20 @@ function Highcharts(nav) {
 
 	html = ''
 	webView = Ti.UI.createWebView({
-		url : '/etc/graph/highcharts/chart.html',//highcharts
+		url : '/etc/graph/highcharts/chart.html', //highcharts
 		// url で指定したファイルに変数をわたしたい
 		// param: total_sleep_array,
-		top :0,
-		height:1000,
-		width:Ti.UI.FILL,
-		disableBounce:true
+		top : 0,
+		height : Ti.UI.SIZE,
+		width : Ti.UI.FILL,
+		disableBounce : true
 	});
 
 	//チャートに表示する時間の取得
 	var db = Ti.Database.open('db');
 	var rows = db.execute('select rowid, * from date_test');
 
+	//チャートX軸(時間)
 	var chart_contain = [];
 	while (rows.isValidRow()) {
 		var rowid = rows.fieldByName('rowid');
@@ -40,6 +41,7 @@ function Highcharts(nav) {
 	var db = Ti.Database.open('db');
 	var rows = db.execute('select rowid, * from date_test');
 
+	//チャートY軸 (日にち)
 	var contain_days = [];
 	while (rows.isValidRow()) {
 		var rowid = rows.fieldByName('rowid');
@@ -52,17 +54,22 @@ function Highcharts(nav) {
 		var in_time_date = new Date((+dateArray[1]), //年
 		(+dateArray[2]) - 1, // Careful, month starts at 0!
 		(+dateArray[3]));
-		
+
 		Ti.API.info("in_time_date :" + in_time_date);
 
-		//TODO これなにしてるんだろうか
+		//TODO 詳しい挙動調査
 		var in_time_timestamp = in_time_date.getTime();
 
 		var sleep_days = dateArray[2] + "/" + dateArray[3];
-		Ti.API.info("sleep_days: "+sleep_days);
+		Ti.API.info("sleep_days: " + sleep_days);
 
 		contain_days[rowid] = sleep_days;
 		//Ti.API.info(contain_days);
+
+		//チャートX軸（GT時間）
+		// var gt_contain = [];
+		// var gt_time_string = rows.fieldByName('')
+
 		rows.next();
 	}
 	rows.closed

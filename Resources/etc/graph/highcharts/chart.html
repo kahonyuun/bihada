@@ -43,6 +43,10 @@
 				for ( i = 0; i < chart_hour.length; i++) {
 					//alert(chart_hour[i])	
 				}
+				//ゴールデンタイム時間取得
+				// var gt_hour = GT;
+				// for (i = 0; i < gt_hour.length; i++){
+				// }
 				function display_chart() {
 				
 					chart = new Highcharts.Chart({
@@ -106,6 +110,9 @@
 							name : '総合睡眠時間',
 							//chart_hour[1]はなんで0なんだろー
 							data : chart_hour//get_min()
+						// },{
+							// name :'シンデレラ睡眠時間',
+							// data : gt_hour
 						}]
 					});
 				};

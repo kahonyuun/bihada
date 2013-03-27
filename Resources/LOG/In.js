@@ -42,7 +42,22 @@ Ti.App.twitterApi = new TwitterApi({
 var twitterApi = Ti.App.twitterApi;
 twitterApi.init();
 
+//TODO ツイート文と時間制御
+var h　= 
+if(13 < h < 15){
+	alert :"午後タイムだよ！";
+}else if(15 < h <18){
+	alert :"夕方もがんがる！";
+} else if(h == 22){
+	alert :"ネロイマスグニダ";
+};
+
+
+
 // ツイートする
+var twi_sentence= 'てえっっす';
+Ti.App.test = twi_sentence;
+
 function tweet() {
 	twitterApi.statuses_update({
 		onSuccess : function(responce) {
@@ -54,7 +69,7 @@ function tweet() {
 		},
 		// API 経由で直近 10 件の重複投稿はブロックされる。
 		parameters : {
-			status : 'テストだお！'
+			status : Ti.App.test
 		}
 	});
 
