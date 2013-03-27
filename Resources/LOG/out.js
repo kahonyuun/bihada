@@ -1,23 +1,10 @@
 /*var twi = require('twi');
-twi.tweet();
-*/
+ twi.tweet();
+ */
 win = Ti.UI.createWindow;
 self = Ti.UI.currentWindow;
 self.top = 0;
 self.height = 410;
-
-//現在時刻判定
-/*function judge_time(){
-	var db = Ti.Database.open('db');
-	var time = new Date();
-	var t = {};
-	h.hour = ("0" + d.getHours() ).slice(-2);
-	h.minute = ("0" + d.getMinutes() ).slice(-2);
-	
-	if((h.hour > 12 ))
-
-}
-*/
 
 //布団OUTタイムを挿入
 function update_outTime() {
@@ -32,8 +19,7 @@ function update_outTime() {
 	db.execute('update date_test set out_time=datetime("now", "localtime") where rowid=?', target_rowid);
 	//データ数
 	var rows = db.execute('select rowid, * from date_test');
-	
-	
+
 	Ti.API.info('row count = ' + rows.getRowCount());
 	//id自体には何も入っておらず、rowidが連番になっていく
 	while (rows.isValidRow()) {
@@ -45,16 +31,17 @@ function update_outTime() {
 	//db.remove();
 };
 update_outTime();
-/* DBから必要なデータを取得 */
+//DBからstring型のintimeをとってタイムスタンプ型に変換
 var db = Ti.Database.open('db');
 var rows = db.execute('select rowid,* from date_test');
 while (rows.isValidRow()) {
-	
-	// For Debug
+
+	// For Debug------------------
 	Ti.API.info('＝＝＝id: ' + rows.fieldByName('rowid') + '＝＝＝＝＝＝＝');
 	Ti.API.info('IN_TIME: ' + rows.fieldByName('in_time'));
-	//2013-02-21 05:58:26みたいな感じ
 	Ti.API.info('OUT_TIME: ' + rows.fieldByName('out_time'));
+	//----------------------------
+	
 	// 変数に入れる
 	var in_time_string = rows.fieldByName('in_time');
 	var out_time_string = rows.fieldByName('out_time');
@@ -64,39 +51,40 @@ while (rows.isValidRow()) {
 
 	//メモ execメソッド：マッチ成功⇒配列を返す、失敗⇒null
 	dateArray = in_reg.exec(in_time_string);
-	//Ti.API.info("正規表現" + dateArray);
+	//Ti.API.info( dateArray);オブジェクト型・正規表現2013-03-14 10:12:13,2013,03,14,10,12,13
 	
-	//正規表現2013-03-14 10:12:13,2013,03,14,10,12,13
-	var in_time_date = new Date(
-	(+dateArray[1]), //年
+	var in_time_date = new Date((+dateArray[1]), //年
 	(+dateArray[2]) - 1, // Careful, month starts at 0!
 	(+dateArray[3]), //日
 	(+dateArray[4]), //時
 	(+dateArray[5]), //分
-	(+dateArray[6]));//秒
-	
+	(+dateArray[6]));
+	//秒
+
 	var in_time_timestamp = in_time_date.getTime();
-	
+Ti.API.info("にゅーめりっく"+in_time_timestamp);
+
 	// out_time
 	out_reg = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
 	outArray = out_reg.exec(out_time_string);
+	//Ti.API.info('ourArray: ' + outArray);
 	if (outArray == null) {
 		var out_time_timestamp = null;
 	} else {
-		var out_time_date = new Date(
-		(+outArray[1]), //年
+		var out_time_date = new Date((+outArray[1]), //年
 		(+outArray[2]) - 1, //月 ←0がないから-1！
 		(+outArray[3]), //日
 		(+outArray[4]), //時
 		(+outArray[5]), //分
-		(+outArray[6]));//秒
-		
+		(+outArray[6]));
+		//秒
+
 		var out_time_timestamp = out_time_date.getTime();
 	}
 	// For Debug
 	// Ti.API.info('in_time_date: ' + in_time_timestamp);
 	// Ti.API.info('out_time_date: ' + out_time_timestamp);
-	
+
 	// 睡眠時間を計算する
 	sleep_time_timestamp = null;
 	if (out_time_timestamp != null && in_time_timestamp != null) {
@@ -107,7 +95,7 @@ while (rows.isValidRow()) {
 	} else {
 		Ti.API.info('sleep_time_timestamp: ' + '計算できない');
 	}
-	
+
 	// 時間(:分)に変換する。
 	if (sleep_time_timestamp != null) {
 		//TODO hourの数字の割り出しがなんかおかしい。。
@@ -154,6 +142,7 @@ Ti.App.twitterApi = new TwitterApi({
 });
 var twitterApi = Ti.App.twitterApi;
 twitterApi.init();
+
 // ツイートする
 function tweet() {
 	twitterApi.statuses_update({
@@ -189,4 +178,4 @@ var tweet_button = Ti.UI.createButton({
 self.add(tweet_button);
 tweet_button.addEventListener('click', function() {
 	tweet()
-}); 
+});
