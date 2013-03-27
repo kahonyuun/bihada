@@ -59,11 +59,22 @@ var in_time_string = rows.fieldByName('in_time');
 var out_time_string = rows.fieldByName('out_time');
 
 //stringを処理して、int化
+
 var inArray = in_time_string.split(" ")[0].split("-").join("");
-var inArray_int = Number(inArray);
-var a = typeof (inArray_int);
-Ti.API.info("うひょ" + inArray_int);
-//var in_time_timestamp = in_time_date.getTime();
+
+		//For Debug*******************
+		Ti.API.info('inArray: ' + inArray)
+
+
+
+
+Ti.App.inArray_int = Number(inArray);
+
+//Debug
+//var a = typeof (inArray_int);
+Ti.API.info("うひょ" + Ti.App.inArray_int);
+//TODO 20130307てでる
+
 rows.closed
 db.close();
 
@@ -88,7 +99,7 @@ if (day < 10) {
 var current_time_join = year + mon + day;
 Ti.API.info('year/mon/day:' + current_time_join);
 
-var current_time_int = Number(current_time_join);
+Ti.App.current_time_int = Number(current_time_join);
 //Ti.API.info("現在時刻" + current_time_int);
 //var a = typeof(current_time_int);
 //Ti.API.info('type :' + a);
@@ -102,9 +113,10 @@ var current_time_int = Number(current_time_join);
 
 //};
 
+//TODO:current_time_intスコープ使えるようにする
 buttonIn.addEventListener('click', function() {
-	if (current_time_int != inArray_int) {
-		alert("GO");
+	if (Ti.App.current_time_int != Ti.App.inArray_int) {
+		alert("GO" + Ti.App.current_time_int);
 		var win = Ti.UI.createWindow({
 			url : "LOG/In.js",
 			backgroundColor : "#fff"
@@ -112,34 +124,27 @@ buttonIn.addEventListener('click', function() {
 		//win.open();新しいwinを作られて戻れなくなる
 		Ti.UI.currentTab.open(win);
 		Ti.API.info('IN')
-	} else {
+	} else if (Ti.App.current_time_int == Ti.App.inArray_int) {
 		alert('同じ日にINボタンが押されています');
 	}
 });
 
 buttonOut.addEventListener('click', function() {
-	//tabGroup.open(tabS);
-	if (current_time_int != inArray_int) {
-		alert("GO");
+	if (Ti.App.current_time_int != Ti.App.inArray_int) {
+		alert("GO" + Ti.App.current_time_int + Ti.App.inArray_int);
 		var win = Ti.UI.createWindow({
 			url : "LOG/out.js",
 			backgroundColor : "fff"
 		});
 		Ti.UI.currentTab.open(win);
 		Ti.API.info('out')
-	} else {
+	} else if (Ti.App.current_time_int == Ti.App.inArray_int) {
 		alert('同じ日にINボタンが押されています');
 	}
 });
 
 view2.add(buttonIn);
 view2.add(buttonOut);
-
-//現在時刻＝最新IN/OUTタイム
-function compare() {
-	if (current_time_int == inArray_int) { alert :"同じ日にINボタンが押されています";
-	};
-}
 
 //時計
 var timer = Ti.UI.createLabel({
