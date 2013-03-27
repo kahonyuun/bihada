@@ -56,9 +56,9 @@ function Highcharts(nav) {
 		//TODO これなにしてるんだろうか
 		var in_time_timestamp = in_time_date.getTime(); 
 		
-		// 使わないかもしれない
-		// var sleep_days = dateArray[2] + "/" + dateArray[3];
-		// Ti.API.info("sleep_days: " + sleep_days);
+		
+		var sleep_days = dateArray[2] + "/" + dateArray[3];
+		Ti.API.info("sleep_days: " + sleep_days);
 
 		contain_days[rowid] = sleep_days;
 		//Ti.API.info(contain_days);

@@ -59,13 +59,11 @@ var in_time_string = rows.fieldByName('in_time');
 var out_time_string = rows.fieldByName('out_time');
 
 //stringを処理して、int化
-
+//TODO 20130307てでるのをなおす
 var inArray = in_time_string.split(" ")[0].split("-").join("");
 
 		//For Debug*******************
-		Ti.API.info('inArray: ' + inArray)
-
-
+		Ti.API.info('inArray: ' + inArray);
 
 
 Ti.App.inArray_int = Number(inArray);
@@ -73,7 +71,6 @@ Ti.App.inArray_int = Number(inArray);
 //Debug
 //var a = typeof (inArray_int);
 Ti.API.info("うひょ" + Ti.App.inArray_int);
-//TODO 20130307てでる
 
 rows.closed
 db.close();
