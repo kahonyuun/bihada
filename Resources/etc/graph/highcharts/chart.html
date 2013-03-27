@@ -34,7 +34,9 @@
 				
 				//日時取得 from chart.js
 				var chart_days = DAY;
-
+				for (i = 0; i < chart_days.length; i++){
+					
+				}
 
 				//時間取得 from chart.js
 				var chart_hour = HOUR;
@@ -60,7 +62,7 @@
 						xAxis : {
 							categories : chart_days,
 							title : {
-								text : null
+								text : "日にち",
 							}
 						},
 						yAxis : {
@@ -119,7 +121,7 @@
 			};
 
 		</script>
-		<div id="container" style="width: 300px; height: 200px; margin: 0 auto"></div>
+		<div id="container" style="width: 400px; height: 300px; margin: 5 auto"></div>
 		<!--<div id="chart-drag-handle"></div>
 		<div id="container" style="min-width: 400px; height: 400px; margin: 0"></div>-->
 	</body>

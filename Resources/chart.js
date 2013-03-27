@@ -1,5 +1,4 @@
 //currentでhtmlを開くためのプリッジファイル
-//柳田神
 
 function Highcharts(nav) {
 	//Ti.API.info("chart.js");
@@ -10,9 +9,13 @@ function Highcharts(nav) {
 
 	html = ''
 	webView = Ti.UI.createWebView({
-		url : '/etc/graph/highcharts/chart.html'//highcharts
+		url : '/etc/graph/highcharts/chart.html',//highcharts
 		// url で指定したファイルに変数をわたしたい
 		// param: total_sleep_array,
+		top :0,
+		height:1000,
+		width:Ti.UI.FILL,
+		disableBounce:true
 	});
 
 	//チャートに表示する時間の取得
@@ -33,7 +36,6 @@ function Highcharts(nav) {
 	rows.closed
 	db.close();
 
-	//TODO チャートのためにin_timeを月日に分割する
 	//TODO 早急にリファクタリング
 	var db = Ti.Database.open('db');
 	var rows = db.execute('select rowid, * from date_test');
