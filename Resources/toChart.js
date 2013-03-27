@@ -1,5 +1,5 @@
  function webView(){
-	chartView = require('/chart_test');//charts
+	chartView = require('/chart');//charts
 	chview = new chartView();
 	chview.show(); 
 //Ti.API.info('toChart2')

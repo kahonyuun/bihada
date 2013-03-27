@@ -2,7 +2,7 @@
 //柳田神
 
 function Highcharts(nav) {
-	//Ti.API.info("chart_test.js");
+	//Ti.API.info("chart.js");
 	var self = Ti.UI.currentWindow
 	var view = Ti.UI.createView({
 		backgroundColor : '#ffffff'
@@ -10,7 +10,7 @@ function Highcharts(nav) {
 
 	html = ''
 	webView = Ti.UI.createWebView({
-		url : '/etc/graph/highcharts/chart_test.html'//highcharts
+		url : '/etc/graph/highcharts/chart.html'//highcharts
 		// url で指定したファイルに変数をわたしたい
 		// param: total_sleep_array,
 	});
@@ -66,7 +66,7 @@ function Highcharts(nav) {
 	rows.closed
 	db.close();
 
-	//②睡眠時間to chart_test.htmlへ配達
+	//②睡眠時間to chart.htmlへ配達
 	webView.addEventListener('load', function(e) {
 		var hours = chart_contain;
 		var days = contain_days;

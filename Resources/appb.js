@@ -101,16 +101,9 @@ Ti.App.current_time_int = Number(current_time_join);
 //var a = typeof(current_time_int);
 //Ti.API.info('type :' + a);
 
-//outした時すでに同日にoutしている場合はupdateできない
-// if(outした日にち=db最新のoutの日にち){
-// alert :"今日はもうoutしてます";
-// }else{
-// out_buttonのaddEvent
-// }
+//TODO 1h以上の睡眠時のみ記録＝＞必要？
 
-//};
 
-//TODO:current_time_intスコープ使えるようにする
 buttonIn.addEventListener('click', function() {
 	if (Ti.App.current_time_int != Ti.App.inArray_int) {
 		alert("GO" + Ti.App.current_time_int);

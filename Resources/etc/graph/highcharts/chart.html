@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>highchart.js</title>
+		<script type="text/javascript" src="jquery.min.js"></script>
+		<script src="highcharts.js"></script>
+		<script src="exporting.js"></script>
+		<style type="text/css">
+			/*
+			 * スマートフォンでタッチスクロールしたいので、
+			 * 画面全体にdivをかぶせて、chartにイベントが送出されないようにする　
+			 */
+			#chart-drag-handle {
+				position: absolute;
+				height: 300;
+				width: 100%;
+				top: 0;
+				z-index: 100;
+			}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// chart.js
+			//chart_hour = '';これつけたらfunction読み込まないTODO ブログ
+			function chart() {
+				var i;
+
+				Ti.API.info('chart start');
+				Ti.API.info("睡眠時間:" + HOUR + "分");
+				//Ti.API.info('日時:' + DAY);
+				//Ti.API.info(hours[0]);//はかない
+				//Ti.API.info(HOUR);//はかない
+				
+				//日時取得 from chart.js
+				var chart_days = DAY;
+
+
+				//時間取得 from chart.js
+				var chart_hour = HOUR;
+				for ( i = 0; i < chart_hour.length; i++) {
+					//alert(chart_hour[i])	
+				}
+				function display_chart() {
+				
+					chart = new Highcharts.Chart({
+						chart : {
+							renderTo : 'container',
+							defaultSeriesType : 'bar',
+							marginRight: 50,
+                            marginBottom: 20,
+                            marginLeft: 50,
+						},
+						title : {
+							text : '睡眠時間チャート'
+						},
+						subtitle : {
+							text : 'にゃんにゃん'
+						},
+						xAxis : {
+							categories : chart_days,
+							title : {
+								text : null
+							}
+						},
+						yAxis : {
+							min : 0,
+							title : {
+								text : '時間(Hour)',
+								align : 'high'
+							}
+						},
+						//マウスカーソルを当てた時にデータ表示
+						tooltip : {
+							formatter : function() {
+								return '' + this.series.name + ': ' + this.y + ' millions';
+							}
+						},
+						//グラフエリアの表示のオプション
+						plotOptions : {
+							bar : {
+								dataLabels : {
+									enabled : true
+								}
+							}
+						},
+						//凡例を表示させたい場合に指定
+						legend : {
+							layout : 'vertical',
+							align : 'right',
+							verticalAlign : 'top',
+							x : -100,
+							y : 100,
+							floating : true,
+							borderWidth : 1,
+							backgroundColor : '#FFFFFF',
+							shadow : true
+						},
+						credits : {
+							enabled : false
+						},
+						series : [{
+							//青
+							name : '総合睡眠時間',
+							//chart_hour[1]はなんで0なんだろー
+							data : chart_hour//get_min()
+						}]
+					});
+				};
+				display_chart();
+			};
+
+			//柳田様
+			function viewChart(title) {
+				Ti.API.info(TITLE);
+				alert(TITLE);
+				Ti.API.info(TITLE2);
+				alert(TITLE2);
+			};
+
+		</script>
+		<div id="container" style="width: 300px; height: 200px; margin: 0 auto"></div>
+		<!--<div id="chart-drag-handle"></div>
+		<div id="container" style="min-width: 400px; height: 400px; margin: 0"></div>-->
+	</body>
+</html>
