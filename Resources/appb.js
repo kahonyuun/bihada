@@ -1,3 +1,5 @@
+//Ti.include('common.js');
+
 //view1=上View
 //view2=下view
 
@@ -70,6 +72,7 @@ Ti.App.inArray_int = Number(inArray);
 
 //Debug
 //var a = typeof (inArray_int);
+//TODO ここ
 Ti.API.info("うひょ" + Ti.App.inArray_int);
 
 rows.closed
@@ -78,10 +81,28 @@ db.close();
 //Ti.API.info("あう " + in_time_timestamp);
 
 //現在日時の取得
-var current_time = new Date();
-var year = current_time.getYear();
-var mon = current_time.getMonth() + 1;
-var day = current_time.getDate();
+var current_date = new Date();
+var year = current_date.getYear();
+var mon = current_date.getMonth() + 1;
+var day = current_date.getDate();
+var hour = current_date.getHours();
+var minute = current_date.getMinutes();
+
+//現在時刻
+var current_time_str = ("0" + hour + minute).slice(-4);
+var current_time_int = Number(current_time_str);
+//For Debug＊＊＊＊＊＊＊＊＊
+Ti.API.info('現在時刻　' + current_time_int);
+//＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+//IN/OUT.jsに時間をもってく
+
+
+//TODO つかえんやったからあとでブログして消す
+//exports.current_time_forTwi = function(){
+	// current_time_int;	
+// };
+
 
 //西暦の処理とゼロパディング。113=>2013
 year = (year < 2000) ? year + 1900 : year;
@@ -93,42 +114,44 @@ if (day < 10) {
 }
 
 //string=>int
-var current_time_join = year + mon + day;
-Ti.API.info('year/mon/day:' + current_time_join);
+var current_day_join = year + mon + day;
 
-Ti.App.current_time_int = Number(current_time_join);
-//Ti.API.info("現在時刻" + current_time_int);
-//var a = typeof(current_time_int);
+Ti.API.info('year/mon/day:' + current_day_join);
+
+Ti.App.current_day_int = Number(current_day_join);
+//Ti.API.info("現在時刻" + Ti.App.current_day_int);
+//var a = typeof(current_day_int);
 //Ti.API.info('type :' + a);
 
 //TODO 1h以上の睡眠時のみ記録＝＞必要？
 
-
 buttonIn.addEventListener('click', function() {
-	if (Ti.App.current_time_int != Ti.App.inArray_int) {
-		alert("GO" + Ti.App.current_time_int);
+	//今日INしてなかったらGO
+	if (Ti.App.current_day_int != Ti.App.inArray_int) {
+		alert("GO" + Ti.App.current_day_int);
 		var win = Ti.UI.createWindow({
 			url : "LOG/In.js",
 			backgroundColor : "#fff"
 		});
-		//win.open();新しいwinを作られて戻れなくなる
+		//TODO :ぶろぐ/win.open();新しいwinを作られて戻れなくなる
 		Ti.UI.currentTab.open(win);
 		Ti.API.info('IN')
-	} else if (Ti.App.current_time_int == Ti.App.inArray_int) {
+	} else if (Ti.App.current_day_int == Ti.App.inArray_int) {
 		alert('同じ日にINボタンが押されています');
 	}
 });
 
 buttonOut.addEventListener('click', function() {
-	if (Ti.App.current_time_int != Ti.App.inArray_int) {
-		alert("GO" + Ti.App.current_time_int + Ti.App.inArray_int);
+	//同じ日にOUTしてなかったらGO TODO inArray_intおかしい
+	if (Ti.App.current_day_int != Ti.App.inArray_int) {
+		alert("GO" + Ti.App.current_day_int + Ti.App.inArray_int);
 		var win = Ti.UI.createWindow({
 			url : "LOG/out.js",
 			backgroundColor : "fff"
 		});
 		Ti.UI.currentTab.open(win);
-		Ti.API.info('out')
-	} else if (Ti.App.current_time_int == Ti.App.inArray_int) {
+		Ti.API.info('out');
+	} else{
 		alert('同じ日にINボタンが押されています');
 	}
 });
@@ -179,3 +202,4 @@ notification_params = {
 };
 notifications.push(Ti.App.iOS.scheduleLocalNotification(notification_params));
 
+//common.test();

@@ -23,14 +23,11 @@ function get_time() {
 		//Ti.API.info('id:' + rows.fieldByName('rowid') + ' IN_TIME:' + rows.fieldByName('in_time') + ' OUT_TIME:' + rows.fieldByName('out_time'))
 		rows.next();
 	}
-	
+
 	rows.closed
 	db.close();
 };
 get_time();
-
-
-
 
 Ti.include("../lib/twitter_api.js");
 // 初回のみ認証処理
@@ -43,20 +40,18 @@ var twitterApi = Ti.App.twitterApi;
 twitterApi.init();
 
 //TODO ツイート文と時間制御
-var h　= 
-if(13 < h < 15){
-	alert :"午後タイムだよ！";
-}else if(15 < h <18){
-	alert :"夕方もがんがる！";
-} else if(h == 22){
-	alert :"ネロイマスグニダ";
-};
+	var h = 17;
+	if (h == 13) { var time_tweet = "午後タイムだよ！";
+	}else if (h == 14) { var time_tweet = "14時";
+	}else if(h == 16) { var time_tweet = "もう16時";
+	}else if(16 < h < 18){var time_tweet = "１７じくらいだお";
+	}else if (h == 22) { var time_tweet = "ネロイマスグニダ";
+	}else if (h == 1){var time_tweet = "今更寝てもおそい";
+	}else{ var time_tweet = "22時に寝始める準備はできたかな？";
+	};
 
-
-
-// ツイートする
-var twi_sentence= 'てえっっす';
-Ti.App.test = twi_sentence;
+// ツイートする文
+var twi_sentence = time_tweet;
 
 function tweet() {
 	twitterApi.statuses_update({
@@ -77,6 +72,17 @@ function tweet() {
 	self.open();
 };
 
+
+//テキスト部分
+var twi_label = Ti.UI.createLabel({
+	text : twi_sentence,
+	height : 100,
+	width : 200,
+	top : 50,
+	left : 30,
+	textAlign : 'center'
+});
+
 //ツイートボタン
 var tweet_button = Ti.UI.createButton({
 	title : 'ツイートする',
@@ -87,6 +93,7 @@ var tweet_button = Ti.UI.createButton({
 	//backgroundImage:'tweet.png'
 });
 
+self.add(twi_label);
 self.add(tweet_button);
 
 tweet_button.addEventListener('click', function() {

@@ -41,7 +41,7 @@ while (rows.isValidRow()) {
 	Ti.API.info('IN_TIME: ' + rows.fieldByName('in_time'));
 	Ti.API.info('OUT_TIME: ' + rows.fieldByName('out_time'));
 	//----------------------------
-	
+
 	// 変数に入れる
 	var in_time_string = rows.fieldByName('in_time');
 	var out_time_string = rows.fieldByName('out_time');
@@ -52,7 +52,7 @@ while (rows.isValidRow()) {
 	//メモ execメソッド：マッチ成功⇒配列を返す、失敗⇒null
 	dateArray = in_reg.exec(in_time_string);
 	//Ti.API.info( dateArray);オブジェクト型・正規表現2013-03-14 10:12:13,2013,03,14,10,12,13
-	
+
 	var in_time_date = new Date((+dateArray[1]), //年
 	(+dateArray[2]) - 1, // Careful, month starts at 0!
 	(+dateArray[3]), //日
@@ -62,7 +62,7 @@ while (rows.isValidRow()) {
 	//秒
 
 	var in_time_timestamp = in_time_date.getTime();
-Ti.API.info("にゅーめりっく"+in_time_timestamp);
+	Ti.API.info("にゅーめりっく" + in_time_timestamp);
 
 	// out_time
 	out_reg = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
@@ -128,12 +128,6 @@ Ti.API.info("にゅーめりっく"+in_time_timestamp);
 
 //TODO GTタイムの算出
 
-
-
-
-
-
-
 //TODO ツイート文選択・読み込み・表示//TWITTER関係
 Ti.include("../lib/twitter_api.js");
 // 初回のみ認証処理
@@ -144,6 +138,62 @@ Ti.App.twitterApi = new TwitterApi({
 });
 var twitterApi = Ti.App.twitterApi;
 twitterApi.init();
+
+//TODO ツイート文と時間制御、time_tweetが冗長できもい、比較演算子使うとおかしい
+//ここにappbの時間をもってくるようにする
+// var current_time = require('appb');
+// appb.Ti.App.current_time_forTwi();
+//Ti.API.info('out_appb :' +  Ti.App.current_time_forTwi);
+var h = 13;
+
+
+if (h == 13) {
+	var time_tweet = "午後タイムだよ！";
+} else if (h == 14) {
+	var time_tweet = "14時";
+} else if (h == 16) {
+	var time_tweet = "もう16時";
+	//}else if(16 < h < 18){var time_tweet = "１７じくらいだお";
+} else if (h == 22) {
+	var time_tweet = "ナゼ今オキタ";
+} else if (h == 1) {
+	var time_tweet = "もうちょいネロ";
+} else {
+	var time_tweet = "22時に寝始める準備はできたかな？";
+}
+;
+
+Ti.API.info('h :' + h);
+// ツイートする文
+var twi_sentence = time_tweet;
+Ti.API.info('twi_sentence :' + time_tweet);
+function tweet() {
+	twitterApi.statuses_update({
+		onSuccess : function(responce) {
+			//     alert('テストだお！ひなだお！うそだお！');
+			Ti.API.info("response" + responce);
+		},
+		onError : function(error) {
+			Ti.API.error(error);
+		},
+		// API 経由で直近 10 件の重複投稿はブロックされる。
+		parameters : {
+			status : Ti.App.test
+		}
+	});
+	// Add item to window.
+	self.open();
+};
+
+//テキスト部分
+var twi_label = Ti.UI.createLabel({
+	text : twi_sentence,
+	height : 100,
+	width : 200,
+	top : 50,
+	left : 30,
+	textAlign : 'center',
+});
 
 // ツイートする
 function tweet() {
@@ -177,7 +227,10 @@ var tweet_button = Ti.UI.createButton({
 	left : 50,
 	//backgroundImage:'tweet.png'
 });
+
 self.add(tweet_button);
+self.add(twi_label);
+
 tweet_button.addEventListener('click', function() {
 	tweet()
 });
