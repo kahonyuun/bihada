@@ -49,16 +49,16 @@ win.add(view2);
 //function judge_count(){
 var db = Ti.Database.open('db');
 var rows = db.execute('select rowid, *  from date_test');
-var limited_rows = db.execute('select rowid from date_test order by rowid desc limit 1');
+var limited_rows = db.execute('select in_time,out_time from date_test order by rowid desc limit 1');
 
 //var rowid = rows.fieldByName('rowid');
 //var in_count = db.execute('select in_time from date_test order by in_time desc');
 //var out_count = db.execute('select out_time from date_test order by out_time desc');
 
 //最新のIN/OUTタイムを格納
-var in_time_string = rows.fieldByName('in_time');
+var in_time_string = limited_rows.fieldByName('in_time');
 //2013-03-19 15:30:13
-var out_time_string = rows.fieldByName('out_time');
+var out_time_string = limited_rows.fieldByName('out_time');
 
 //stringを処理して、int化
 //TODO 20130307てでるのをなおす
@@ -85,17 +85,6 @@ var current_date = new Date();
 var year = current_date.getYear();
 var mon = current_date.getMonth() + 1;
 var day = current_date.getDate();
-var hour = current_date.getHours();
-var minute = current_date.getMinutes();
-
-//現在時刻
-var current_time_str = ("0" + hour + minute).slice(-4);
-var current_time_int = Number(current_time_str);
-//For Debug＊＊＊＊＊＊＊＊＊
-Ti.API.info('現在時刻　' + current_time_int);
-//＊＊＊＊＊＊＊＊＊＊＊＊＊
-
-//IN/OUT.jsに時間をもってく
 
 
 //TODO つかえんやったからあとでブログして消す

@@ -6,6 +6,27 @@ self = Ti.UI.currentWindow;
 self.top = 0;
 self.height = 410;
 
+//現在日時の取得
+var current_date = new Date();
+var hour = current_date.getHours();
+var minute = current_date.getMinutes();
+
+Ti.API.info('minute ' + hour + minute);
+//現在時刻
+var current_hour_str = ("0"+hour).slice(-2);
+var current_minute_str=("0"+minute).slice(-2);
+var current_time_str = current_hour_str + current_minute_str;
+
+var current_time_int = Number(current_time_str);
+//For Debug＊＊＊＊＊＊＊＊＊
+Ti.API.info('現在時刻　' + current_time_int);
+//＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+//IN/OUT.jsに時間をもってく
+
+
+
+
 //布団OUTタイムを挿入
 function update_outTime() {
 	var db = Ti.Database.open('db');
@@ -126,7 +147,6 @@ while (rows.isValidRow()) {
 	rows.next();
 };
 
-//TODO GTタイムの算出
 
 //TODO ツイート文選択・読み込み・表示//TWITTER関係
 Ti.include("../lib/twitter_api.js");
@@ -144,19 +164,19 @@ twitterApi.init();
 // var current_time = require('appb');
 // appb.Ti.App.current_time_forTwi();
 //Ti.API.info('out_appb :' +  Ti.App.current_time_forTwi);
-var h = 13;
+var h = current_time_int;
 
 
-if (h == 13) {
+if (1200 < h < 1300) {
 	var time_tweet = "午後タイムだよ！";
-} else if (h == 14) {
+} else if (h == 1400) {
 	var time_tweet = "14時";
-} else if (h == 16) {
+} else if (h == 1600) {
 	var time_tweet = "もう16時";
 	//}else if(16 < h < 18){var time_tweet = "１７じくらいだお";
-} else if (h == 22) {
+} else if (h == 2200) {
 	var time_tweet = "ナゼ今オキタ";
-} else if (h == 1) {
+} else if (h == 1000) {
 	var time_tweet = "もうちょいネロ";
 } else {
 	var time_tweet = "22時に寝始める準備はできたかな？";
