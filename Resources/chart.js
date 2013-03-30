@@ -9,7 +9,7 @@ function Highcharts(nav) {
 
 	html = ''
 	webView = Ti.UI.createWebView({
-		url : '/etc/graph/highcharts/chart.html', //highcharts
+		url : '/etc/graph/highcharts/chart.html', 
 		// url で指定したファイルに変数をわたしたい
 		// param: total_sleep_array,
 		top : 0,
@@ -84,7 +84,7 @@ function Highcharts(nav) {
 		//Ti.API.info(hours[0]);
 		//Ti.API.info(hours[1]);
 
-		//webView.evalJS("chart( HOUR = " + hours + ")");//でないTODO ブログ
+		//webView.evalJS("chart( HOUR = " + hours + ")");//でない
 		webView.evalJS("chart( HOUR = " + JSON.stringify(hours) + " )");
 		webView.evalJS("chart( DAY = " + JSON.stringify(days) + ")");
 

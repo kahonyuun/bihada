@@ -45,15 +45,10 @@ var view2 = Ti.UI.createView({
 });
 win.add(view2);
 
-//TODO :１日に1度しかin/outできない
 //function judge_count(){
 var db = Ti.Database.open('db');
 var rows = db.execute('select rowid, *  from date_test');
 var limited_rows = db.execute('select in_time,out_time from date_test order by rowid desc limit 1');
-
-//var rowid = rows.fieldByName('rowid');
-//var in_count = db.execute('select in_time from date_test order by in_time desc');
-//var out_count = db.execute('select out_time from date_test order by out_time desc');
 
 //最新のIN/OUTタイムを格納
 var in_time_string = limited_rows.fieldByName('in_time');
@@ -61,18 +56,15 @@ var in_time_string = limited_rows.fieldByName('in_time');
 var out_time_string = limited_rows.fieldByName('out_time');
 
 //stringを処理して、int化
-//TODO 20130307てでるのをなおす
 var inArray = in_time_string.split(" ")[0].split("-").join("");
 
-		//For Debug*******************
-		Ti.API.info('inArray: ' + inArray);
-
+//For Debug*******************
+Ti.API.info('inArray: ' + inArray);
 
 Ti.App.inArray_int = Number(inArray);
 
 //Debug
 //var a = typeof (inArray_int);
-//TODO ここ
 Ti.API.info("うひょ" + Ti.App.inArray_int);
 
 rows.closed
@@ -86,12 +78,10 @@ var year = current_date.getYear();
 var mon = current_date.getMonth() + 1;
 var day = current_date.getDate();
 
-
 //TODO つかえんやったからあとでブログして消す
 //exports.current_time_forTwi = function(){
-	// current_time_int;	
+// current_time_int;
 // };
-
 
 //西暦の処理とゼロパディング。113=>2013
 year = (year < 2000) ? year + 1900 : year;
@@ -114,35 +104,33 @@ Ti.App.current_day_int = Number(current_day_join);
 
 //TODO 1h以上の睡眠時のみ記録＝＞必要？
 
-buttonIn.addEventListener('click', function() {
-	//今日INしてなかったらGO
-	if (Ti.App.current_day_int != Ti.App.inArray_int) {
-		alert("GO" + Ti.App.current_day_int);
-		var win = Ti.UI.createWindow({
-			url : "LOG/In.js",
-			backgroundColor : "#fff"
-		});
-		//TODO :ぶろぐ/win.open();新しいwinを作られて戻れなくなる
-		Ti.UI.currentTab.open(win);
-		Ti.API.info('IN')
-	} else if (Ti.App.current_day_int == Ti.App.inArray_int) {
-		alert('同じ日にINボタンが押されています');
-	}
+buttonIn.addEventListener('click', function(){
+//if (Ti.App.current_day_int != Ti.App.inArray_int) {
+//alert("GO" + Ti.App.current_day_int);
+
+var win = Ti.UI.createWindow({
+	url : "LOG/In.js",
+	backgroundColor : "#fff"})
+
+Ti.UI.currentTab.open(win);
+//}else if(Ti.App.current_day_int == Ti.App.inArray_int)
+//{
+	//alert('同じ日にINボタンが押されています');
 });
 
 buttonOut.addEventListener('click', function() {
-	//同じ日にOUTしてなかったらGO TODO inArray_intおかしい
-	if (Ti.App.current_day_int != Ti.App.inArray_int) {
-		alert("GO" + Ti.App.current_day_int + Ti.App.inArray_int);
-		var win = Ti.UI.createWindow({
-			url : "LOG/out.js",
-			backgroundColor : "fff"
-		});
-		Ti.UI.currentTab.open(win);
-		Ti.API.info('out');
-	} else{
-		alert('同じ日にINボタンが押されています');
-	}
+
+//if (Ti.App.current_day_int != Ti.App.inArray_int) {
+//	alert("GO" + Ti.App.current_day_int + Ti.App.inArray_int);
+var win = Ti.UI.createWindow({
+url : "LOG/out.js",
+backgroundColor : "fff"
+});
+Ti.UI.currentTab.open(win);
+Ti.API.info('out');
+//}else {
+	//alert('同じ日にINボタンが押されています');
+//}
 });
 
 view2.add(buttonIn);
